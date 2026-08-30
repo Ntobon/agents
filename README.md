@@ -8,7 +8,7 @@ Catalog of my Claude agents, the [methodology](METHODOLOGY.md) to build and shar
 |---|---|---|---|
 | **finance-tracker** | Personal finances on Supabase: natural-language expense tracking, recurring payments, card statements, reports | [Ntobon/agentic-finance-tracker](https://github.com/Ntobon/agentic-finance-tracker) (own repo — deep backend & provisioning) | ✅ Packaged, in production |
 | **purchases** | Purchase research: multi-angle search, real verification, value matrix, shareable HTML comparison | [`purchases/`](purchases/) in this repo | ✅ Packaged |
-| **health** | Personalized printable health reports (PDF) per family member, age-adapted, Colombian EPS context | [`health/`](health/) in this repo | ✅ Packaged |
+| **health** | Family health management system on Google Drive: per-member medical archive, reports, medical packages for appointments, dashboards, trials surveillance, recurring audit | [`health/`](health/) in this repo | ✅ Packaged |
 
 ## Installing an agent
 

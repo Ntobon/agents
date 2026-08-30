@@ -1,21 +1,33 @@
 # Health
 
-Personalized, printable health reports (PDF, in Spanish) per family member, from lab results. Adapts recommendations to the patient's age (pediatric → elderly, with evidence-based screening de-intensification) and to the Colombian health system context (EPS).
+A complete **family health management system** run by Claude on top of Google Drive. Not just reports: one master archive for the whole family (people and pets), a strict documentary pattern per member, and the skills to manage real clinical situations end to end — in Spanish, aware of the Colombian health system (EPS), and usable from the computer, the web, and the phone against the same files.
+
+## What it does
+
+- **Archive**: every document that arrives (photo in chat, email, PDF) gets archived per the pattern — raw original preserved, renamed copy, plain-language transcription, lab trend table, and the member's index updated. Nothing stays loose.
+- **Personal health reports** (`personal-health-report`): age-adapted printable PDF for each member, updated when new exams arrive.
+- **Medical package for appointments** (`medical-record-package`): a facts-only 1-2 page clinical summary with page-referenced curated annexes, merged into one print-ready PDF; signed documents go as real scans; imaging annexes include the study images. Email delivery offered.
+- **Private dashboards** (`internal-html-dashboard`): the owner's mobile-first living boards — status, agenda with persistent checkboxes, frank Q&A with sources, emergency signs — archived in Drive and republished to a stable URL.
+- **Clinical trials surveillance** (`clinical-trials`): ClinicalTrials.gov search with honest pertinence analysis against the documented case.
+- **Recurring order** (`archive-audit`): a weekly scheduled routine that re-archives strays, resolves sync clashes, updates indexes and context files, and polices the agent/context separation.
+- **Zero-friction growth** (`add-family-member`): "quiero agregar un nuevo miembro" creates the whole structure — the user never makes folders.
+
+## The three layers
+
+| Layer | Where it lives | Shared? |
+|---|---|---|
+| The engine (skills, templates, routine) | This plugin | ✅ 100% agnostic |
+| The family's context (root + per-member CLAUDE.md/MEMORY/TAREAS) | The family's Google Drive folder | ❌ |
+| The clinical documents | Same Drive folder (offline-enabled, connector-reachable) | ❌ |
+
+Google Drive is the storage backbone: the same archive is available to local Claude Code sessions (mounted drive, offline mode) and to claude.ai web/mobile sessions (Drive connector, works even with the computer off).
 
 ## Installation
 
-This agent is lightweight (no backend). It installs as part of the `Ntobon/agents` marketplace:
-- **claude.ai** (web + mobile): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
-- **Claude Code**: `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents`.
+Say **"quiero instalarlo"** — `health-setup` guides everything with zero commands: Google Drive app + offline mode + connector, the master folder and root CLAUDE.md from the template, the plugin (synced to `Ntobon/agents`), the weekly audit, and a live verification archiving a first document.
 
-## Usage
-
-1. Create one Claude Project per family member (e.g. "Salud Papá") and upload their exams (PDF) there.
-2. Say: **"hazme el informe de salud"** — the skill auto-detects identity, age, and prior reports from the project.
-3. You get a PDF ready to read, print, or take to the doctor. When new exams arrive, ask for "el informe actualizado": it compares against the previous one and leads with what changed.
-
-Each person's data lives in their Project (or in `local/people/` when used in Claude Code) — never in this repo.
+Manual plugin install: claude.ai → Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add; or `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents` in Claude Code.
 
 ## What it does NOT do
 
-It doesn't diagnose, doesn't replace a medical consultation, doesn't dose medication, doesn't extrapolate beyond the documents.
+It doesn't diagnose, doesn't replace a medical consultation, doesn't dose medication, and never invents clinical data — every fact must trace to a dated document.

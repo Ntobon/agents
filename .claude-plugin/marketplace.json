@@ -12,7 +12,7 @@
     {
       "name": "health",
       "source": "./health",
-      "description": "Personalized, printable health reports (PDF, in Spanish) per family member, age-adapted and aware of the Colombian EPS context."
+      "description": "Family health management system on Google Drive: per-member medical archive with a strict documentary pattern, health reports, printable medical packages, private dashboards, clinical-trials surveillance, and a recurring audit."
     }
   ]
 }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Resumen clínico</title>
+<style>
+  /* Diseño para impresión en blanco y negro. Sin color semántico: jerarquía por peso y filetes. */
+  @page { size: letter; margin: 15mm 16mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", -apple-system, Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.42; color: #111; background: #fff;
+  }
+  .doc { max-width: 178mm; margin: 0 auto; }
+
+  /* Encabezado */
+  header { border-bottom: 2.5px solid #111; padding-bottom: 6px; margin-bottom: 10px; }
+  .h-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  h1 { font-size: 15pt; margin: 0; letter-spacing: -0.2px; }
+  .h-fecha { font-size: 9.5pt; color: #333; white-space: nowrap; }
+  .h-datos { font-size: 9.5pt; color: #333; margin-top: 2px; }
+  .h-motivo { font-size: 10.5pt; margin-top: 4px; }
+  .h-motivo b { text-transform: uppercase; letter-spacing: 0.4px; font-size: 9pt; }
+
+  /* Lo esencial */
+  .esencial {
+    border: 1.5px solid #111; border-radius: 3px;
+    padding: 8px 12px; margin: 10px 0 12px;
+    page-break-inside: avoid;
+  }
+  .esencial h2 { margin: 0 0 4px; font-size: 9pt; text-transform: uppercase; letter-spacing: 1px; }
+  .esencial ul { margin: 0; padding-left: 16px; }
+  .esencial li { margin: 2.5px 0; }
+
+  /* Secciones */
+  h2.sec {
+    font-size: 9.5pt; text-transform: uppercase; letter-spacing: 1px;
+    margin: 12px 0 4px; padding-bottom: 2px; border-bottom: 1px solid #999;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 8px; page-break-inside: avoid; }
+  th {
+    text-align: left; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.5px;
+    color: #444; border-bottom: 1px solid #777; padding: 2px 8px 2px 0; font-weight: 600;
+  }
+  td { padding: 3px 8px 3px 0; border-bottom: 0.5px solid #ccc; vertical-align: top; font-size: 10pt; }
+  tr:last-child td { border-bottom: none; }
+  td.fecha, td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .fuera { font-weight: 700; }             /* valor fuera de rango: solo negrita */
+  .fuente { color: #555; font-size: 9pt; } /* referencia al anexo/examen */
+
+  /* Anexos */
+  ol.anexos { margin: 4px 0; padding-left: 20px; }
+  ol.anexos li { margin: 2.5px 0; }
+
+  footer {
+    margin-top: 12px; padding-top: 5px; border-top: 1px solid #999;
+    font-size: 8.5pt; color: #444;
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header>
+    <div class="h-top">
+      <h1><!-- NOMBRE DEL PACIENTE --></h1>
+      <div class="h-fecha">Resumen al <!-- FECHA DEL RESUMEN --></div>
+    </div>
+    <div class="h-datos"><!-- CC · fecha de nacimiento (edad) · aseguradora si aporta --></div>
+    <div class="h-motivo"><b>Motivo</b> — <!-- MOTIVO DE LA CITA / ESTUDIO --></div>
+  </header>
+
+  <div class="esencial">
+    <h2>Lo esencial</h2>
+    <ul>
+      <!-- 3-5 <li> priorizados: lo que el médico debe saber aunque no lea más.
+           Cada uno con fecha y, si aplica, referencia al anexo. -->
+    </ul>
+  </div>
+
+  <h2 class="sec">Diagnósticos activos</h2>
+  <table>
+    <tr><th>Diagnóstico</th><th>Desde</th><th>Fuente</th></tr>
+    <!-- <tr><td>…</td><td class="fecha">…</td><td class="fuente">…</td></tr> -->
+  </table>
+
+  <h2 class="sec">Medicación actual</h2>
+  <table>
+    <tr><th>Medicamento</th><th>Dosis</th><th>Frecuencia</th></tr>
+    <!-- <tr><td>…</td><td>…</td><td>…</td></tr> -->
+  </table>
+
+  <h2 class="sec">Cronología relevante</h2>
+  <table>
+    <tr><th>Fecha</th><th>Hecho</th><th>Fuente</th></tr>
+    <!-- Solo hechos que aportan al motivo. La fuente cita el examen (y n.º de anexo si va adjunto). -->
+  </table>
+
+  <h2 class="sec">Resultados clave</h2>
+  <!-- Una tabla corta por tema. Valores fuera de rango con class="fuera" (negrita, sin color). -->
+  <table>
+    <tr><th>Examen</th><th>Resultado</th><th>Referencia</th><th>Fecha</th></tr>
+    <!-- <tr><td>…</td><td class="num fuera">…</td><td>…</td><td class="fecha">…</td></tr> -->
+  </table>
+
+  <h2 class="sec">Anexos (en orden)</h2>
+  <ol class="anexos">
+    <!-- <li>Endoscopia digestiva alta — 15-ago-2026 (informe original)</li> -->
+  </ol>
+
+  <footer>
+    Resumen preparado por la familia a partir de los informes originales adjuntos — <!-- FECHA -->. Cada dato es verificable contra el anexo citado.
+  </footer>
+
+</div>
+</body>
+</html>
