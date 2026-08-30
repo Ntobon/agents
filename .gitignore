@@ -1,0 +1,5 @@
+# Capa personal de cualquier agente de este repo — NUNCA se versiona
+**/local/
+
+# Empaques congelados (regenerables)
+**/dist/

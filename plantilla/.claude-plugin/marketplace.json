@@ -1,0 +1,14 @@
+{
+  "_comment": "Solo si el agente vive en SU PROPIO repo. Si vive en Ntobon/agents, borrar este archivo y registrar la subcarpeta en el marketplace.json del índice con source: './<carpeta>'.",
+  "name": "<nombre>-marketplace",
+  "owner": {
+    "name": "Nicolás Tobón"
+  },
+  "plugins": [
+    {
+      "name": "<nombre-del-agente>",
+      "source": "./",
+      "description": "<misma descripción del plugin.json>"
+    }
+  ]
+}
