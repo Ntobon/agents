@@ -1,0 +1,8 @@
+{
+  "name": "salud",
+  "description": "Informes de salud personalizados e imprimibles (PDF, en español) por miembro de la familia, a partir de exámenes de laboratorio e historia clínica. Adapta recomendaciones por edad y al contexto del sistema de salud colombiano (EPS).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nicolás Tobón"
+  }
+}

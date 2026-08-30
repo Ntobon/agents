@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Informe de salud personal",
+    "name": "Don Alberto Gómez Ríos",
+    "subtitle": "79 años — Mayo de 2026",
+    "large_text": true
+  },
+  "opening_box": {
+    "title": "Don Alberto,",
+    "color": "blue",
+    "paragraphs": [
+      "Este es un resumen sencillo de cómo están sus exámenes y qué conviene hacer en los próximos meses. La idea es que tenga claro lo importante, sin sobrecargarse de pruebas innecesarias.",
+      "La noticia general es buena: para un hombre de su edad, sus indicadores están mejor que el promedio. Hay un par de puntos que conviene revisar con calma, pero no hay nada alarmante.",
+      {
+        "type": "paragraph",
+        "text": "Este informe no reemplaza la consulta con su médico — es una guía para que sepa qué preguntar y qué pedir.",
+        "italic": true,
+        "color": "595959",
+        "size": 20
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "1. Panorama general",
+      "blocks": [
+        { "type": "paragraph", "text": "De los exámenes hechos entre marzo de 2025 y mayo de 2026, esto es lo que sale:" },
+        { "type": "subheading", "text": "Lo que está muy bien ✓", "color": "green" },
+        {
+          "type": "bullets",
+          "items": [
+            "Su colesterol total es de 119, casi excelente. Esto protege su corazón.",
+            "Sus triglicéridos están bajos (81). Muy bien.",
+            "Su azúcar en ayunas es normal (88).",
+            "Su ácido úrico se normalizó: pasó de 7.6 a 5.5.",
+            "Su próstata está estable. El PSA está en rango normal (3.15)."
+          ]
+        },
+        { "type": "subheading", "text": "Lo que se mantiene estable", "color": "blue" },
+        {
+          "type": "bullets",
+          "items": [
+            "Hemoglobina glicosilada (HbA1c) en 6.0 %. Prediabetes leve, estable desde hace casi 10 años.",
+            "Función renal disminuida (creatinina 1.36). Normal en personas mayores, llamado enfermedad renal crónica estadio 3a."
+          ]
+        },
+        { "type": "subheading", "text": "Lo que conviene revisar 📋", "color": "orange" },
+        {
+          "type": "bullets",
+          "items": [
+            "Hemoglobina ligeramente baja (11.8). Es una anemia leve que merece estudio.",
+            "Antecedente de hematuria en junio de 2025, sin infección. Vale la pena confirmar que se evaluó."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "2. Qué hacer en los próximos 1-3 meses",
+      "blocks": [
+        { "type": "subheading", "text": "Prioridad alta: estudiar la anemia leve", "color": "orange" },
+        { "type": "paragraph", "text": "La hemoglobina bajó a 11.8. No es grave (lo grave sería por debajo de 10), pero a su edad es importante saber por qué. Pídale a su médico:" },
+        {
+          "type": "bullets",
+          "items": [
+            "Ferritina, hierro sérico, vitamina B12 y ácido fólico.",
+            "Reticulocitos.",
+            "Repetir creatinina y calcular su TFG."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "3. Señales de alarma",
+      "blocks": [
+        {
+          "type": "info_box",
+          "title": "Consultar en urgencias o pedir cita prioritaria",
+          "color": "orange",
+          "paragraphs": [
+            {
+              "type": "rich_bullets",
+              "items": [
+                { "runs": [
+                  { "text": "Sangre visible en la orina ", "bold": true },
+                  { "text": "(color rosado, rojo o como té oscuro)." }
+                ]},
+                { "runs": [
+                  { "text": "Dolor de pecho ", "bold": true },
+                  { "text": "que aprieta, sobre todo con esfuerzo." }
+                ]},
+                { "runs": [
+                  { "text": "Caída con golpe en la cabeza ", "bold": true },
+                  { "text": "(aunque se sienta bien después)." }
+                ]}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "lines": [
+      "Resumen elaborado a partir de los exámenes de laboratorio Sanitas / Keralty.",
+      "Este documento es informativo y no reemplaza la valoración del médico tratante."
+    ]
+  }
+}

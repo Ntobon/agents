@@ -1,0 +1,7 @@
+{
+  "_comment": "Copia este archivo a local/config.json — o deja que compras-setup lo haga por ti.",
+  "ciudad": "<tu ciudad>",
+  "moneda": "COP",
+  "idioma": "español",
+  "html_branding": "Investigación hecha con Claude"
+}

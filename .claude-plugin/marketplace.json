@@ -3,5 +3,16 @@
   "owner": {
     "name": "Nicolás Tobón"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "compras",
+      "source": "./compras",
+      "description": "Investigaciones de compra para el mercado colombiano: búsqueda multi-enfoque, verificación real de precios y envío, matriz de valor y comparativa HTML compartible."
+    },
+    {
+      "name": "salud",
+      "source": "./salud",
+      "description": "Informes de salud personalizados e imprimibles (PDF, en español) por miembro de la familia, adaptados por edad y al contexto EPS colombiano."
+    }
+  ]
 }

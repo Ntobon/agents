@@ -7,8 +7,8 @@ Catálogo de mis agentes de Claude, la [metodología](METODOLOGIA.md) para const
 | Agente | Qué hace | Dónde vive | Estado |
 |---|---|---|---|
 | **finance-tracker** | Finanzas personales sobre Supabase: gastos en lenguaje natural, pagos recurrentes, extractos, reportes | [Ntobon/agentic-finance-tracker](https://github.com/Ntobon/agentic-finance-tracker) (repo propio — backend y provisioning profundo) | ✅ Empaquetado y en producción |
-| **compras** | Investigaciones y decisiones de compra | `compras/` en este repo (liviano: CLAUDE.md + skills) | 🔜 Por empaquetar |
-| **salud** | Informes de salud personalizados por miembro de la familia | `salud/` en este repo | 🔜 Por empaquetar |
+| **compras** | Investigaciones de compra: búsqueda multi-enfoque, verificación real, matriz de valor, comparativa HTML | [`compras/`](compras/) en este repo | ✅ Empaquetado |
+| **salud** | Informes de salud personalizados (PDF) por miembro de la familia, adaptados por edad y contexto EPS | [`salud/`](salud/) en este repo | ✅ Empaquetado |
 
 ## Instalar un agente
 

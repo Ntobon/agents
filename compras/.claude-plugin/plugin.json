@@ -1,0 +1,8 @@
+{
+  "name": "compras",
+  "description": "Agente de investigaciones de compra: investiga a fondo una compra potencial (búsqueda multi-enfoque, verificación de precios y envío en el navegador, matriz de valor ponderada) y entrega un reporte con veredicto ejecutivo más una comparativa HTML compartible. Orientado al mercado colombiano.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nicolás Tobón"
+  }
+}
