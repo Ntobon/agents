@@ -1,5 +1,5 @@
 {
-  "name": "compras",
+  "name": "purchases",
   "description": "Purchase research agent: deep-researches a potential purchase (multi-angle search, in-browser price/stock/shipping verification, weighted value matrix) and delivers a report with an executive verdict plus a shareable HTML comparison. Oriented to the Colombian market.",
   "version": "1.0.0",
   "author": {

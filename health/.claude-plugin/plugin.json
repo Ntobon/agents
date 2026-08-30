@@ -1,5 +1,5 @@
 {
-  "name": "salud",
+  "name": "health",
   "description": "Personalized, printable health reports (PDF, in Spanish) per family member, from lab results and medical history. Adapts recommendations by age and to the Colombian health system (EPS) context.",
   "version": "1.0.0",
   "author": {

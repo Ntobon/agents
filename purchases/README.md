@@ -1,4 +1,4 @@
-# Compras
+# Purchases
 
 Purchase research agent for the Colombian market: deep-researches a potential purchase (multi-angle search with ~5 agents, real in-browser verification of price/stock/shipping, weighted value matrix) and delivers a report with an **executive verdict** plus a **shareable HTML comparison**. Every research run is archived for future reference.
 
@@ -6,7 +6,7 @@ Purchase research agent for the Colombian market: deep-researches a potential pu
 
 Lightweight agent (no backend). Installs from the `Ntobon/agents` marketplace:
 - **claude.ai** (web + mobile): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
-- **Claude Code**: `claude plugin marketplace add Ntobon/agents` + `claude plugin install compras@ntobon-agents`.
+- **Claude Code**: `claude plugin marketplace add Ntobon/agents` + `claude plugin install purchases@ntobon-agents`.
 
 Then say **"configura el agente de compras"** (30 seconds: city, currency, branding) and try it with *"investiga qué [producto] comprar"*.
 
@@ -15,7 +15,7 @@ Then say **"configura el agente de compras"** (30 seconds: city, currency, brand
 | Layer | Where it lives | Shared? |
 |---|---|---|
 | The engine (process, conventions, per-profile criteria) | This plugin | ✅ |
-| Your instance (`local/config.json` + `local/investigaciones/`) | Your folder / your Claude memory | ❌ |
+| Your instance (`local/config.json` + `local/research/`) | Your folder / your Claude memory | ❌ |
 
 ## What it can do
 

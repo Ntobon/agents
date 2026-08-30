@@ -1,4 +1,4 @@
-# Salud — per-person health reports
+# Health — per-person health reports
 
 Agent for generating personalized health reports (PDF, in Spanish) for each family member, from lab results and medical context. The core is the `personal-health-report` skill.
 
@@ -9,7 +9,7 @@ Agent for generating personalized health reports (PDF, in Spanish) for each fami
 Two equivalent modes — the skill detects context on its own, without interrogating the user:
 
 1. **One Claude Project per person** (web/mobile, recommended): a Project per family member ("Salud Papá", "Mi salud"), with their lab PDFs and prior reports as project files and their description in the project instructions.
-2. **One local folder per person** (Claude Code): `local/personas/<name>/` with exams and prior reports. `local/` is gitignored — never versioned or shared.
+2. **One local folder per person** (Claude Code): `local/people/<name>/` with exams and prior reports. `local/` is gitignored — never versioned or shared.
 
 ## Agent rules
 

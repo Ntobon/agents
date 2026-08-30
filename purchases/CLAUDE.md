@@ -1,4 +1,4 @@
-# Compras — purchase research agent
+# Purchases — purchase research agent
 
 Agent for deep-researching potential purchases before deciding, archiving every research run for future reference. Oriented to the Colombian market (COP prices, local retail and marketplaces).
 
@@ -8,7 +8,7 @@ Agent for deep-researching potential purchases before deciding, archiving every 
 
 1. If `local/config.json` exists in the working directory → read it (city, currency, language, HTML branding).
 2. Anywhere else → look for those values in Claude memory; if missing, ask once and save them.
-3. No config anywhere → offer the `compras-setup` skill.
+3. No config anywhere → offer the `purchases-setup` skill.
 
 Config keys: `city` (every option must actually ship there, or be pickup-viable in a justifiable nearby city), `currency` (convert foreign sources at the day's rate and note it), `language` for the reports, `html_branding` (brand line for the shareable HTML; default: "Investigación hecha con Claude").
 
@@ -17,21 +17,21 @@ Config keys: `city` (every option must actually ship there, or be pickup-viable 
 ```
 local/
   config.json
-  investigaciones/
+  research/
     YYYY-MM-<topic>/
-      reporte.md            ← final report
-      comparativa-<topic>-...-con-claude.html   ← shareable HTML
-      datos/                ← raw agent outputs, intermediate notes
+      report.md             ← final report (written in the configured language)
+      <comparison>-con-claude.html   ← shareable HTML
+      data/                 ← raw agent outputs, intermediate notes
 ```
 
-**HTML file name**: it gets shared externally — self-descriptive (what is compared, where) and ending in `-con-claude`. Equally descriptive `<title>`; footer with the configured branding and the date.
+**HTML file name**: it gets shared externally — written in the report's language, self-descriptive (what is compared, where), and ending in `-con-claude`. Equally descriptive `<title>`; footer with the configured branding and the date.
 
 ## Skills
 
 | Skill | When |
 |---|---|
-| `compras-setup` | Configure the instance (city, currency, branding) |
-| `investigar-compra` | "investiga qué <producto> comprar", "ayúdame a decidir entre…", "búscame opciones de…" |
+| `purchases-setup` | Configure the instance (city, currency, branding) |
+| `purchase-research` | "investiga qué <producto> comprar", "ayúdame a decidir entre…", "búscame opciones de…" |
 
 ## Cross-cutting conventions
 

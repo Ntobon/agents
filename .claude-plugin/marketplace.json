@@ -5,13 +5,13 @@
   },
   "plugins": [
     {
-      "name": "compras",
-      "source": "./compras",
+      "name": "purchases",
+      "source": "./purchases",
       "description": "Purchase research for the Colombian market: multi-angle search, real in-browser verification, weighted value matrix, and a shareable HTML comparison."
     },
     {
-      "name": "salud",
-      "source": "./salud",
+      "name": "health",
+      "source": "./health",
       "description": "Personalized, printable health reports (PDF, in Spanish) per family member, age-adapted and aware of the Colombian EPS context."
     }
   ]

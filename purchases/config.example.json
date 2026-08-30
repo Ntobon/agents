@@ -1,5 +1,5 @@
 {
-  "_comment": "Copy this file to local/config.json — or let compras-setup do it for you.",
+  "_comment": "Copy this file to local/config.json — or let purchases-setup do it for you.",
   "city": "<your city>",
   "currency": "COP",
   "language": "español",
