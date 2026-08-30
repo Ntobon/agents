@@ -1,8 +1,0 @@
-{
-  "name": "<nombre-del-agente>",
-  "description": "<Qué hace el agente, en una frase útil para el diálogo de instalación.>",
-  "version": "1.0.0",
-  "author": {
-    "name": "Nicolás Tobón"
-  }
-}

@@ -1,26 +1,26 @@
 # Compras
 
-Agente de investigaciones de compra para el mercado colombiano: investiga a fondo una compra potencial (búsqueda multi-enfoque con ~5 agentes, verificación real de precios/stock/envío en el navegador, matriz de valor ponderada) y entrega un reporte con **veredicto ejecutivo** más una **comparativa HTML compartible**. Cada investigación queda archivada para consulta futura.
+Purchase research agent for the Colombian market: deep-researches a potential purchase (multi-angle search with ~5 agents, real in-browser verification of price/stock/shipping, weighted value matrix) and delivers a report with an **executive verdict** plus a **shareable HTML comparison**. Every research run is archived for future reference.
 
-## Instalación
+## Installation
 
-Agente liviano (sin backend). Se instala desde el marketplace `Ntobon/agents`:
-- **claude.ai** (web + celular): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
+Lightweight agent (no backend). Installs from the `Ntobon/agents` marketplace:
+- **claude.ai** (web + mobile): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
 - **Claude Code**: `claude plugin marketplace add Ntobon/agents` + `claude plugin install compras@ntobon-agents`.
 
-Luego di **"configura el agente de compras"** (30 segundos: ciudad, moneda, branding) y estrena con *"investiga qué [producto] comprar"*.
+Then say **"configura el agente de compras"** (30 seconds: city, currency, branding) and try it with *"investiga qué [producto] comprar"*.
 
-## Las tres capas
+## The three layers
 
-| Capa | Dónde vive | ¿Se comparte? |
+| Layer | Where it lives | Shared? |
 |---|---|---|
-| El motor (proceso, convenciones, criterios por perfil) | Este plugin | ✅ |
-| Tu instancia (`local/config.json` + `local/investigaciones/`) | Tu carpeta / tu memoria de Claude | ❌ |
+| The engine (process, conventions, per-profile criteria) | This plugin | ✅ |
+| Your instance (`local/config.json` + `local/investigaciones/`) | Your folder / your Claude memory | ❌ |
 
-## Qué sabe hacer
+## What it can do
 
-| Pides | Resultado |
+| You say | Result |
 |---|---|
-| "investiga qué patineta eléctrica comprar" | Reporte completo + comparativa HTML, con precios verificados con fecha |
-| "ayúdame a decidir entre X y Y" | Matriz de valor ponderada al caso de uso |
-| "es para mi papá de 80 años" | Aplica criterios especializados por perfil (references/) |
+| "investiga qué patineta eléctrica comprar" | Full report + HTML comparison, with date-stamped verified prices |
+| "ayúdame a decidir entre X y Y" | Value matrix weighted to the use case |
+| "es para mi papá de 80 años" | Applies specialized per-profile criteria (references/) |

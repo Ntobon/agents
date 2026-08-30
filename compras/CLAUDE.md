@@ -1,40 +1,40 @@
-# Compras — investigaciones de compra
+# Compras — purchase research agent
 
-Agente para investigar a fondo compras potenciales antes de decidir, con archivo de cada investigación para consulta futura. Orientado al mercado colombiano (precios COP, retail y marketplaces locales).
+Agent for deep-researching potential purchases before deciding, archiving every research run for future reference. Oriented to the Colombian market (COP prices, local retail and marketplaces).
 
-**Arquitectura de tres capas**: el motor (este plugin) / la instancia (`local/`: tu config y tu archivo de investigaciones) / no hay backend.
+**Three-layer architecture**: the engine (this plugin) / the instance (`local/`: your config and your research archive) / no backend.
 
-## Bootstrap de sesión
+## Session bootstrap
 
-1. Si existe `local/config.json` en el directorio de trabajo → leerlo (ciudad, moneda, idioma, branding del HTML).
-2. En cualquier otro lado → buscar esos datos en la memoria de Claude; si faltan, preguntar una vez y guardarlos.
-3. Si no hay config → ofrecer el skill `compras-setup`.
+1. If `local/config.json` exists in the working directory → read it (city, currency, language, HTML branding).
+2. Anywhere else → look for those values in Claude memory; if missing, ask once and save them.
+3. No config anywhere → offer the `compras-setup` skill.
 
-Claves de config: `ciudad` (toda opción debe tener envío real ahí o retiro viable en una ciudad cercana), `moneda` (convertir fuentes extranjeras con la tasa del día y anotarlo), `idioma` de los reportes, `html_branding` (marca del HTML compartible; default: "Investigación hecha con Claude").
+Config keys: `city` (every option must actually ship there, or be pickup-viable in a justifiable nearby city), `currency` (convert foreign sources at the day's rate and note it), `language` for the reports, `html_branding` (brand line for the shareable HTML; default: "Investigación hecha con Claude").
 
-## Estructura de la instancia
+## Instance layout
 
 ```
 local/
   config.json
   investigaciones/
-    YYYY-MM-<tema>/
-      reporte.md            ← reporte final
-      comparativa-<tema>-...-con-claude.html   ← HTML compartible
-      datos/                ← salidas crudas, notas intermedias
+    YYYY-MM-<topic>/
+      reporte.md            ← final report
+      comparativa-<topic>-...-con-claude.html   ← shareable HTML
+      datos/                ← raw agent outputs, intermediate notes
 ```
 
-**Nombre del HTML**: se comparte por fuera — autodescriptivo (qué se compara, dónde) y terminado en `-con-claude`. `<title>` igual de descriptivo; footer con el branding configurado y la fecha.
+**HTML file name**: it gets shared externally — self-descriptive (what is compared, where) and ending in `-con-claude`. Equally descriptive `<title>`; footer with the configured branding and the date.
 
 ## Skills
 
-| Skill | Cuándo |
+| Skill | When |
 |---|---|
-| `compras-setup` | Configurar la instancia (ciudad, moneda, branding) |
+| `compras-setup` | Configure the instance (city, currency, branding) |
 | `investigar-compra` | "investiga qué <producto> comprar", "ayúdame a decidir entre…", "búscame opciones de…" |
 
-## Convenciones transversales
+## Cross-cutting conventions
 
-- **Veredicto ejecutivo primero** (qué comprar, dónde, precio, por qué), argumentado por costo-beneficio, nunca por precio más bajo. El detalle va después.
-- Mantener un **historial de investigaciones** al final del `local/`-CLAUDE o en un índice de la carpeta, y las convenciones nuevas que se aprendan en cada investigación se agregan al skill (motor) si son generales, o a `local/` si son personales.
-- Técnico (Windows): PowerShell 5.1 corrompe UTF-8 sin BOM — usar `[System.IO.File]::ReadAllText/WriteAllText` con `UTF8Encoding($false)`, nunca `Get-Content -Raw`.
+- **Executive verdict first** (what to buy, where, price, why), argued by cost-benefit, never by lowest price. Details come after.
+- Keep a **research history** index in `local/`, and fold newly learned conventions into the skill (engine) when general, or into `local/` when personal.
+- Technical (Windows): PowerShell 5.1 corrupts BOM-less UTF-8 — use `[System.IO.File]::ReadAllText/WriteAllText` with `UTF8Encoding($false)`, never `Get-Content -Raw`.

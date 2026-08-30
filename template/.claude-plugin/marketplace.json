@@ -1,0 +1,14 @@
+{
+  "_comment": "Only if the agent lives in ITS OWN repo. If it lives in Ntobon/agents, delete this file and register the subfolder in the index marketplace.json with source: './<folder>'.",
+  "name": "<name>-marketplace",
+  "owner": {
+    "name": "Nicolás Tobón"
+  },
+  "plugins": [
+    {
+      "name": "<agent-name>",
+      "source": "./",
+      "description": "<same description as plugin.json>"
+    }
+  ]
+}

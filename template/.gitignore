@@ -1,0 +1,5 @@
+# The agent's personal layer — NEVER shared or versioned
+local/
+
+# Frozen packages (regenerable)
+dist/

@@ -1,21 +1,21 @@
 # Salud
 
-Informes de salud personalizados e imprimibles (PDF, en español) por miembro de la familia, a partir de exámenes de laboratorio. Adapta las recomendaciones a la edad del paciente (pediátrico → adulto mayor, con des-intensificación de tamizajes basada en evidencia) y al contexto del sistema de salud colombiano (EPS).
+Personalized, printable health reports (PDF, in Spanish) per family member, from lab results. Adapts recommendations to the patient's age (pediatric → elderly, with evidence-based screening de-intensification) and to the Colombian health system context (EPS).
 
-## Instalación
+## Installation
 
-Este agente es liviano (sin backend). Se instala como parte del marketplace `Ntobon/agents`:
-- **claude.ai** (web + celular): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
+This agent is lightweight (no backend). It installs as part of the `Ntobon/agents` marketplace:
+- **claude.ai** (web + mobile): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
 - **Claude Code**: `claude plugin marketplace add Ntobon/agents` + `claude plugin install salud@ntobon-agents`.
 
-## Uso
+## Usage
 
-1. Crea un Proyecto de Claude por familiar (p. ej. "Salud Papá") y sube ahí sus exámenes (PDF).
-2. Di: **"hazme el informe de salud"** — el skill detecta solo la identidad, la edad y los informes previos desde el proyecto.
-3. Recibes un PDF listo para leer, imprimir o llevar al médico. Cuando lleguen exámenes nuevos, pide "el informe actualizado": compara contra el anterior y lidera con lo que cambió.
+1. Create one Claude Project per family member (e.g. "Salud Papá") and upload their exams (PDF) there.
+2. Say: **"hazme el informe de salud"** — the skill auto-detects identity, age, and prior reports from the project.
+3. You get a PDF ready to read, print, or take to the doctor. When new exams arrive, ask for "el informe actualizado": it compares against the previous one and leads with what changed.
 
-Los datos de cada persona viven en su Proyecto (o en `local/personas/` si se usa en Claude Code) — nunca en este repo.
+Each person's data lives in their Project (or in `local/personas/` when used in Claude Code) — never in this repo.
 
-## Qué NO hace
+## What it does NOT do
 
-No diagnostica, no reemplaza la consulta médica, no dosifica medicamentos, no extrapola más allá de los documentos.
+It doesn't diagnose, doesn't replace a medical consultation, doesn't dose medication, doesn't extrapolate beyond the documents.

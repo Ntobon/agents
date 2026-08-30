@@ -1,5 +1,5 @@
-# Capa personal de cualquier agente de este repo — NUNCA se versiona
+# Personal layer of any agent in this repo — NEVER versioned
 **/local/
 
-# Empaques congelados (regenerables)
+# Frozen packages (regenerable)
 **/dist/

@@ -1,26 +1,26 @@
 ---
 name: compras-setup
-description: Configurar una instancia nueva del agente de compras (ciudad, moneda, idioma, branding del HTML y carpeta de investigaciones). Use cuando el usuario diga "quiero instalarlo", "configura el agente de compras", "setup de compras", o cuando investigar-compra no encuentre la configuración.
+description: Configure a new instance of the purchase-research agent (city, currency, language, HTML branding, and the research archive folder). Use when the user says "quiero instalarlo", "install this", "configura el agente de compras", "setup de compras", or when investigar-compra can't find its configuration.
 ---
 
 # Compras Setup
 
-Onboarding liviano — este agente no tiene backend. **El usuario no ejecuta comandos**: Claude pregunta y escribe todo.
+Lightweight onboarding — this agent has no backend. **The user runs no commands**: Claude asks and writes everything.
 
-**Idempotente**: si la config ya existe y está completa, mostrarla y salir.
+**Idempotent**: if the config already exists and is complete, show it and exit.
 
-## Pasos
+## Steps
 
-1. Preguntar (una sola tanda, en lenguaje simple):
-   - ¿En qué ciudad estás? (las opciones deben tener envío real ahí)
-   - ¿Moneda de los precios? (default: COP)
-   - ¿Idioma de los reportes? (default: español)
-   - ¿Quieres una marca/branding en los HTML que se comparten? (default: "Investigación hecha con Claude")
-2. Escribir la config:
-   - **Con carpeta de trabajo** (Claude Code): `local/config.json` con `{ "ciudad", "moneda", "idioma", "html_branding" }` y crear `local/investigaciones/`. Explicar que `local/` es privada y no se versiona.
-   - **Sin carpeta** (claude.ai/celular): guardar los mismos datos en la memoria de Claude.
-3. Verificar leyendo la config recién escrita y estrenar: "Prueba con: *investiga qué [producto que le interese] comprar*".
+1. Ask (one round, plain language):
+   - What city are you in? (options must actually ship there)
+   - Price currency? (default: COP)
+   - Report language? (default: Spanish)
+   - Do you want a brand line on the shareable HTMLs? (default: "Investigación hecha con Claude")
+2. Write the config:
+   - **With a working folder** (Claude Code): `local/config.json` with `{ "city", "currency", "language", "html_branding" }` and create `local/investigaciones/`. Explain that `local/` is private and never versioned.
+   - **No folder** (claude.ai/mobile): save the same values to Claude memory.
+3. Verify by reading back the config just written, then first use: "Try: *investiga qué [product they care about] comprar*".
 
 ## Error handling
-- Ciudad ambigua (hay varias con el mismo nombre) → confirmar país/departamento.
-- El usuario no quiere responder algo → usar el default y decirlo.
+- Ambiguous city (several share the name) → confirm country/region.
+- The user skips a question → use the default and say so.

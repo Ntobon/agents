@@ -1,12 +1,13 @@
-# Agent Builder — fábrica e índice de agentes
+# Agent Builder — agent factory and index
 
-Esta carpeta es el repo `Ntobon/agents`: el índice de mis agentes de Claude y el lugar donde se construyen y empaquetan los nuevos.
+This folder is the `Ntobon/agents` repo: the index of my Claude agents and the place where new ones get built and packaged.
 
-**Al trabajar aquí, la fuente de verdad del oficio es [METODOLOGIA.md](METODOLOGIA.md).** Toda creación, conversión o empaquetado de un agente sigue esa metodología: arquitectura de tres capas (motor compartible / instancia en `local/` / datos en el backend del usuario), plugin atado al repositorio con Sync automatically, onboarding sin comandos, y el checklist del §10.
+**When working here, the source of truth for the craft is [METHODOLOGY.md](METHODOLOGY.md).** Every creation, conversion, or packaging of an agent follows that methodology: three-layer architecture (shareable engine / instance in `local/` / data in the user's backend), plugin tied to the repository with Sync automatically, zero-command onboarding, and the §10 checklist.
 
-Reglas de esta carpeta:
-- Los agentes **livianos** (solo CLAUDE.md + skills) viven aquí como subcarpetas y se registran en `.claude-plugin/marketplace.json` (`source: "./<carpeta>"`). Los de **setup profundo** (backend propio) viven en su repo y solo se catalogan en el README.
-- Nunca meter datos personales en el motor de un agente: van en `local/` (gitignored) o en el backend del usuario.
-- Todo agente nuevo parte de `plantilla/`.
-- Al terminar cualquier cambio: commit + push (identidad Ntobon / nicolastoboncastano@gmail.com — ya configurada local al repo), y actualizar el catálogo del README si cambió la lista de agentes.
-- Referencia viva del patrón completo: el repo [Ntobon/agentic-finance-tracker](https://github.com/Ntobon/agentic-finance-tracker) (primer agente convertido; copia de trabajo en `E:\Claude\Finance`).
+Rules for this folder:
+- **Lightweight** agents (CLAUDE.md + skills only) live here as subfolders and are registered in `.claude-plugin/marketplace.json` (`source: "./<folder>"`). **Deep-setup** agents (own backend) live in their own repo and are only cataloged in the README.
+- Never put personal data in an agent's engine: it goes in `local/` (gitignored) or in the user's backend.
+- **Everything committed to this repo is written in English.** The language each agent speaks is a runtime user preference; literal user trigger phrases and output examples may stay in the users' language (they are data).
+- Every new agent starts from `template/`.
+- After any change: commit + push (identity Ntobon / nicolastoboncastano@gmail.com — already configured locally in this repo), and update the README catalog if the agent list changed.
+- Living reference for the full pattern: the [Ntobon/agentic-finance-tracker](https://github.com/Ntobon/agentic-finance-tracker) repo (first converted agent; working copy at `E:\Claude\Finance`).

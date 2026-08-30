@@ -1,29 +1,29 @@
-# Agents — índice y fábrica de agentes
+# Agents — index and agent factory
 
-Catálogo de mis agentes de Claude, la [metodología](METODOLOGIA.md) para construirlos y compartirlos, y la [plantilla](plantilla/) para arrancar uno nuevo. Este repo es además un **marketplace de plugins**: los agentes livianos viven aquí como subcarpetas; los que tienen setup profundo viven en su propio repo y este índice los referencia.
+Catalog of my Claude agents, the [methodology](METHODOLOGY.md) to build and share them, and the [template](template/) to start a new one. This repo is also a **plugin marketplace**: lightweight agents live here as subfolders; agents with deep setup live in their own repo and are referenced from this index.
 
-## Catálogo
+## Catalog
 
-| Agente | Qué hace | Dónde vive | Estado |
+| Agent | What it does | Where it lives | Status |
 |---|---|---|---|
-| **finance-tracker** | Finanzas personales sobre Supabase: gastos en lenguaje natural, pagos recurrentes, extractos, reportes | [Ntobon/agentic-finance-tracker](https://github.com/Ntobon/agentic-finance-tracker) (repo propio — backend y provisioning profundo) | ✅ Empaquetado y en producción |
-| **compras** | Investigaciones de compra: búsqueda multi-enfoque, verificación real, matriz de valor, comparativa HTML | [`compras/`](compras/) en este repo | ✅ Empaquetado |
-| **salud** | Informes de salud personalizados (PDF) por miembro de la familia, adaptados por edad y contexto EPS | [`salud/`](salud/) en este repo | ✅ Empaquetado |
+| **finance-tracker** | Personal finances on Supabase: natural-language expense tracking, recurring payments, card statements, reports | [Ntobon/agentic-finance-tracker](https://github.com/Ntobon/agentic-finance-tracker) (own repo — deep backend & provisioning) | ✅ Packaged, in production |
+| **compras** | Purchase research: multi-angle search, real verification, value matrix, shareable HTML comparison | [`compras/`](compras/) in this repo | ✅ Packaged |
+| **salud** | Personalized printable health reports (PDF) per family member, age-adapted, Colombian EPS context | [`salud/`](salud/) in this repo | ✅ Packaged |
 
-## Instalar un agente
+## Installing an agent
 
-Cada agente se instala como **plugin sincronizado con su repositorio** — se actualiza solo con cada push. Para personas no técnicas: abrir la carpeta del agente en Claude y decir **"quiero instalarlo"**; el skill de setup guía todo sin comandos. El detalle por superficie (claude.ai / Claude Code) está en [METODOLOGIA.md §4](METODOLOGIA.md).
+Every agent installs as a **plugin synced to its repository** — it updates itself on every push. For non-technical people: open the agent's folder in Claude and say **"quiero instalarlo"** / "install this"; the setup skill guides everything with zero commands. Per-surface details (claude.ai / Claude Code) are in [METHODOLOGY.md §4](METHODOLOGY.md).
 
-Para instalar los agentes de ESTE repo:
+To install the agents living in THIS repo:
 - claude.ai: Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → Add.
-- Claude Code: `claude plugin marketplace add Ntobon/agents` y luego `claude plugin install <agente>@ntobon-agents`.
+- Claude Code: `claude plugin marketplace add Ntobon/agents`, then `claude plugin install <agent>@ntobon-agents`.
 
-## Compartir un agente
+## Sharing an agent
 
-Invitar a la persona al repo correspondiente (o hacerlo público). Los repos no contienen nada personal — arquitectura de tres capas: motor compartible / instancia local gitignored / datos en el backend de cada quien. Ver [METODOLOGIA.md §2 y §5](METODOLOGIA.md).
+Invite the person to the corresponding repo (or make it public). The repos contain nothing personal — three-layer architecture: shareable engine / gitignored local instance / data in each person's own backend. See [METHODOLOGY.md §2 and §5](METHODOLOGY.md).
 
-## Crear un agente nuevo
+## Creating a new agent
 
-1. Copiar `plantilla/` (como subcarpeta aquí si es liviano, o como repo propio si tendrá backend — criterios en [METODOLOGIA.md §9](METODOLOGIA.md)).
-2. Seguir el checklist de [METODOLOGIA.md §10](METODOLOGIA.md).
-3. Registrarlo en el catálogo de este README y, si vive aquí, en `.claude-plugin/marketplace.json`.
+1. Copy `template/` (as a subfolder here if lightweight, or as its own repo if it will have a backend — criteria in [METHODOLOGY.md §9](METHODOLOGY.md)).
+2. Follow the checklist in [METHODOLOGY.md §10](METHODOLOGY.md).
+3. Register it in this README's catalog and, if it lives here, in `.claude-plugin/marketplace.json`.

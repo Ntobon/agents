@@ -1,26 +1,26 @@
-# Salud — informes de salud por persona
+# Salud — per-person health reports
 
-Agente para generar informes de salud personalizados (PDF en español) para cada miembro de la familia, a partir de exámenes de laboratorio y contexto médico. El corazón es el skill `personal-health-report`.
+Agent for generating personalized health reports (PDF, in Spanish) for each family member, from lab results and medical context. The core is the `personal-health-report` skill.
 
-**Arquitectura de tres capas**: el motor (este plugin, 100% agnóstico) / la instancia (los espacios por persona, ver abajo) / los datos (los exámenes e informes de cada persona — NUNCA en este repo).
+**Three-layer architecture**: the engine (this plugin, 100% agnostic) / the instance (the per-person spaces, see below) / the data (each person's exams and reports — NEVER in this repo).
 
-## Cómo se organiza la instancia (los datos de cada quien)
+## How the instance is organized (each person's data)
 
-Dos modos equivalentes — el skill detecta el contexto solo, sin interrogar al usuario:
+Two equivalent modes — the skill detects context on its own, without interrogating the user:
 
-1. **Proyectos de Claude por persona** (web/celular, recomendado): un Proyecto por familiar ("Salud Papá", "Mi salud"), con sus PDFs de laboratorio e informes previos como archivos del proyecto y su descripción en las instrucciones del proyecto.
-2. **Carpeta local por persona** (Claude Code): `local/personas/<nombre>/` con los exámenes e informes previos. `local/` está gitignored — jamás se versiona ni se comparte.
+1. **One Claude Project per person** (web/mobile, recommended): a Project per family member ("Salud Papá", "Mi salud"), with their lab PDFs and prior reports as project files and their description in the project instructions.
+2. **One local folder per person** (Claude Code): `local/personas/<name>/` with exams and prior reports. `local/` is gitignored — never versioned or shared.
 
-## Reglas del agente
+## Agent rules
 
-- El informe es para el **paciente**, no para quien lo pide: tono y tratamiento según edad (ver el skill).
-- Nunca inventar valores; citar cifras y fechas de los documentos.
-- Un solo disclaimer por informe; no diluir el contenido con advertencias repetidas.
-- El entregable es el **PDF**; el .docx se conserva solo como fuente de regeneración.
-- Preguntas rápidas sobre un examen → responder inline, sin generar informe.
+- The report is for the **patient**, not for whoever requested it: tone and form of address by age (see the skill).
+- Never invent values; cite figures and dates from the documents.
+- Exactly one disclaimer per report; don't dilute the content with repeated hedging.
+- The deliverable is the **PDF**; the .docx is kept only as regeneration source.
+- Quick questions about a single exam → answer inline, no full report.
 
 ## Skills
 
-| Skill | Cuándo |
+| Skill | When |
 |---|---|
 | `personal-health-report` | "informe de salud", "analiza estos exámenes para [persona]", "genera el informe actualizado" |

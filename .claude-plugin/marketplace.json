@@ -7,12 +7,12 @@
     {
       "name": "compras",
       "source": "./compras",
-      "description": "Investigaciones de compra para el mercado colombiano: búsqueda multi-enfoque, verificación real de precios y envío, matriz de valor y comparativa HTML compartible."
+      "description": "Purchase research for the Colombian market: multi-angle search, real in-browser verification, weighted value matrix, and a shareable HTML comparison."
     },
     {
       "name": "salud",
       "source": "./salud",
-      "description": "Informes de salud personalizados e imprimibles (PDF, en español) por miembro de la familia, adaptados por edad y al contexto EPS colombiano."
+      "description": "Personalized, printable health reports (PDF, in Spanish) per family member, age-adapted and aware of the Colombian EPS context."
     }
   ]
 }

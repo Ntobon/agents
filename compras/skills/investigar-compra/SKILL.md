@@ -1,52 +1,52 @@
 ---
 name: investigar-compra
-description: Investigar a fondo una compra potencial en el mercado colombiano y entregar reporte con veredicto ejecutivo más comparativa HTML compartible. Use este skill cuando el usuario diga "investiga qué <producto> comprar", "ayúdame a decidir entre", "búscame opciones de", "compárame <productos>", "qué <producto> me recomiendas", o cualquier variante de querer investigar una compra antes de decidir.
+description: Deep-research a potential purchase in the Colombian market and deliver a report with an executive verdict plus a shareable HTML comparison. Use this skill when the user says "investiga qué <producto> comprar", "ayúdame a decidir entre", "búscame opciones de", "compárame <productos>", "qué <producto> me recomiendas", or any variant of wanting to research a purchase before deciding.
 ---
 
 # Investigar compra
 
-Investigación completa de una compra potencial: búsqueda multi-enfoque, verificación real de precios y disponibilidad, matriz de valor ponderada y entregables archivables.
+Full research of a potential purchase: multi-angle search, real price/availability verification, weighted value matrix, and archivable deliverables.
 
 ## Bootstrap
-Resolver la config (ciudad, moneda, idioma, `html_branding`) según el CLAUDE.md del agente: `local/config.json` si existe; si no, memoria de Claude; si falta todo, ofrecer `compras-setup`. Las opciones que no tengan envío real a la ciudad del usuario (o retiro viable en una ciudad cercana justificable) **no sirven** — descartarlas temprano.
+Resolve the config (city, currency, language, `html_branding`) per the agent's CLAUDE.md: `local/config.json` if present; otherwise Claude memory; if nothing, offer `compras-setup`. Options without real shipping to the user's city (or justifiable pickup in a nearby city) **don't count** — discard them early.
 
-## Proceso estándar
+## Standard process
 
 ### 1. Brief
-Capturar: qué quiere el usuario, presupuesto (si lo hay), casos de uso, restricciones, y para quién es (los criterios cambian — ver `references/`).
+Capture: what the user wants, budget (if any), use cases, constraints, and who it's for (criteria change — see `references/`).
 
-### 2. Búsqueda multi-enfoque
-Workflow de ~5 agentes con ángulos distintos: marketplace, tiendas oficiales de marca, retail grande, especialistas, comunidad/reviews, y (si aplica) el caso de uso específico. Cada agente devuelve opciones estructuradas: nombre, specs clave, precio en la moneda local, tienda, URL, disponibilidad de envío. (Patrón probado: ~50 opciones en ~23 min.)
+### 2. Multi-angle search
+Workflow of ~5 agents with distinct angles: marketplace, official brand stores, big retail, specialists, community/reviews, and (if applicable) the specific use case. Each agent returns structured options: name, key specs, price in local currency, store, URL, shipping availability. (Proven pattern: ~50 options in ~23 min.)
 
-### 3. Verificación con browser (obligatoria para finalistas)
-No confiar en resultados de búsqueda — suelen estar desactualizados. Verificar en el navegador: precio real, stock, envío a la ciudad del usuario. Marcar cada finalista como "verificado DD-MM-AAAA" en reporte y HTML (los descuentos colombianos del 25-40% vencen rápido).
+### 3. Browser verification (mandatory for finalists)
+Never trust search results — they are usually stale. Verify in the browser: real price, stock, shipping to the user's city. Mark each finalist "verificado DD-MM-AAAA" in the report and HTML (Colombian 25-40% discounts expire fast).
 
-### 4. Matriz de valor
-Tabla comparativa con specs relevantes al caso de uso, precio y puntaje ponderado según el brief. Incluir una vista de eficiencia (puntaje ÷ precio, "puntos por millón") — suele revelar que las gamas medias ganan en valor. La **posventa pondera explícito (~15%)** cuando el usuario vive fuera de las ciudades grandes.
+### 4. Value matrix
+Comparison table with use-case-relevant specs, price, and a weighted score per the brief. Include an efficiency view (score ÷ price, "points per million") — it tends to reveal that mid-range options win on value. **After-sales service weighs explicitly (~15%)** when the user lives outside the big cities.
 
-### 5. Entregables
-- `reporte.md`: **veredicto ejecutivo primero** (qué comprar, dónde, precio, por qué — argumentado por costo-beneficio, nunca solo por precio), luego hallazgos, matriz y advertencias.
-- `comparativa-<tema>-...-con-claude.html`: usable y responsive — tablas comparativas solo en desktop (≥900px); en móvil, cartas con toda la información de la fila; filtros en ambos modos y selector de orden en móvil. Branding según config (si el skill de artefactos de la casa está disponible, usarlo).
-- Guardar todo en `local/investigaciones/YYYY-MM-<tema>/` (con `datos/` para salidas crudas).
+### 5. Deliverables
+- `reporte.md`: **executive verdict first** (what to buy, where, price, why — argued by cost-benefit, never by lowest price alone), then findings, matrix, and warnings.
+- `comparativa-<topic>-...-con-claude.html`: usable and responsive — comparison tables desktop-only (≥900px); on mobile, cards carrying the full row's information; filters in both modes and a sort selector on mobile. Branding per config (if the house artifact skill is available, use it).
+- Save everything under `local/investigaciones/YYYY-MM-<topic>/` (with `datos/` for raw outputs).
 
-## Convenciones de búsqueda y verificación (aprendidas en casos reales)
+## Search & verification conventions (learned from real cases)
 
-- **El mismo producto varía fuerte de precio por canal.** Comparar siempre: tienda oficial de marca vs retail grande (Éxito, Alkosto, Falabella, Ktronix) vs Mercado Libre vs especialistas. Caso real: un mismo celular $424.000 más barato en retail que en la tienda de la marca. El retail grande además resuelve envío/garantía/retiro.
-- **Cobertura local del retail**: verificar qué cadenas tienen tienda física en la ciudad del usuario — varía en ciudades intermedias, y la garantía presencial puede justificar un sobreprecio moderado (~$150.000) o no.
-- **Mercado Libre bloquea la verificación automatizada** (muro anti-bot). Sus precios llegan de snippets indexados: tratarlos como aproximados, abrir la publicación manualmente antes de decidir, y preferir vendedores MercadoLíder con facturación.
-- **Los agentes de búsqueda se equivocan en specs clave.** Caso real: reportaban un procesador/IP rating/parlantes que no correspondían a la variante vendida en Colombia. En la verificación de finalistas confirmar procesador, RAM de la variante exacta y detalles decisivos en la ficha de la tienda + una review reciente — el veredicto puede cambiar.
-- **Señal de alerta posventa**: dominio oficial de la marca muerto o secuestrado en Colombia (caso real: el dominio local de una marca de patinetas redirigía a un sitio de apuestas). Sin distribuidor vivo no hay repuestos — revisar el dominio local de cada marca antes de recomendarla.
-- **Autonomía/rendimiento real ≈ 50-60% del catálogo** en productos con batería (las cifras oficiales son de banco de pruebas); en condiciones exigentes, descontar más. Ver `references/criterios-terreno-mixto.md`.
-- **Normativa**: cuando aplique (movilidad, drones, etc.), anotar los límites legales colombianos (ej. >25 km/h excede la micromovilidad en vía pública — Ley VELMPU).
+- **The same product varies wildly in price across channels.** Always compare: official brand store vs big retail (Éxito, Alkosto, Falabella, Ktronix) vs Mercado Libre vs specialists. Real case: the same phone was $424,000 COP cheaper at retail than at the brand's own store. Big retail also solves shipping/warranty/pickup.
+- **Local retail coverage**: verify which chains have a physical store in the user's city — it varies in mid-size cities, and in-person warranty may (or may not) justify a moderate premium (~$150,000 COP).
+- **Mercado Libre blocks automated verification** (anti-bot wall). Its prices arrive via indexed snippets: treat them as approximate, open the listing manually before deciding, and prefer MercadoLíder sellers with invoicing.
+- **Search agents get key specs wrong.** Real case: they reported a processor/IP rating/speakers that didn't match the variant actually sold in Colombia. During finalist verification, confirm processor, RAM of the exact variant, and decisive details on the store's spec sheet + one recent review — the verdict can flip.
+- **After-sales red flag**: the brand's official local domain dead or hijacked (real case: a scooter brand's Colombian domain redirected to a betting site). No living distributor → no spare parts — check each brand's local domain before recommending it.
+- **Real battery life/performance ≈ 50-60% of the brochure** for battery products (official figures come from bench tests); under demanding conditions discount more. See `references/criterios-terreno-mixto.md`.
+- **Regulation**: when applicable (mobility, drones, etc.), note the Colombian legal limits (e.g. >25 km/h exceeds micromobility rules on public roads — VELMPU law).
 
-## Criterios por perfil (references/)
+## Per-profile criteria (references/)
 
-- Compra para **adulto mayor** (tecnología): leer `references/criterios-adulto-mayor.md` antes de armar la matriz.
-- Producto para **terreno mixto / exteriores**: leer `references/criterios-terreno-mixto.md`.
+- Purchase for an **older adult** (tech): read `references/criterios-adulto-mayor.md` before building the matrix.
+- Product for **mixed terrain / outdoors**: read `references/criterios-terreno-mixto.md`.
 
-Estos archivos crecen: cuando una investigación produzca criterios reutilizables para un perfil nuevo, agregarlos como referencia nueva.
+These files grow: when a research run produces reusable criteria for a new profile, add them as a new reference.
 
 ## Error handling
-- **Config not found**: ofrecer `compras-setup`.
-- **Producto sin oferta local**: decirlo claro y evaluar importación solo si el usuario lo pide (impuestos + garantía).
-- **Precios inconsistentes entre fuentes**: gana el verificado en browser con fecha.
+- **Config not found**: offer `compras-setup`.
+- **No local offer for the product**: say it clearly and evaluate importing only if the user asks (taxes + warranty).
+- **Inconsistent prices across sources**: the browser-verified, date-stamped one wins.
