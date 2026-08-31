@@ -53,6 +53,7 @@ Cada carpeta de paciente:
 
 - Las carpetas 01-06 existen siempre; las vacías llevan `00 Sin documentos aún.md`.
 - Nombres: `AAAA-MM-DD Descripción.ext` con la fecha de toma/atención. Prefijo `00` para archivos meta.
+- **Toda carpeta de la raíz mantiene un `00 Índice general.md`, siga o no el patrón completo.** En las carpetas sin patrón funciona en modo inventario (qué es cada archivo, fecha, estado, línea de tiempo). El contexto se recupera leyendo CLAUDE.md → índice → transcripciones, nunca re-escaneando los documentos; todo documento que entra o cambia de estado se registra en el índice el mismo día.
 - PDF + transcripción `.md` al lado; documentos compuestos en subcarpeta `- cortes`/`- imágenes`.
 - Transcripciones: encabezado (paciente, sede, fechas, origen) → tablas con referencia y estado → "Lectura rápida" en lenguaje llano.
 - Marcas: ✅ normal/cumplido · ⚠️ fuera de rango/pendiente · ▼▲ dirección del cambio.
