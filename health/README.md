@@ -9,6 +9,7 @@ A complete **family health management system** run by Claude on top of Google Dr
 - **Medical package for appointments** (`medical-record-package`): a facts-only 1-2 page clinical summary with page-referenced curated annexes, merged into one print-ready PDF; signed documents go as real scans; imaging annexes include the study images. Email delivery offered.
 - **Private dashboards** (`internal-html-dashboard`): the owner's mobile-first living boards — status, agenda with persistent checkboxes, frank Q&A with sources, emergency signs — archived in Drive and republished to a stable URL.
 - **Clinical trials surveillance** (`clinical-trials`): ClinicalTrials.gov search with honest pertinence analysis against the documented case.
+- **EPS status package** (`eps-status-package`): the administrative counterpart of the medical package — a factual status of filings, authorizations, orders, and appointments (states written as the insurer lives them, every blocked item chained to its blocking filing number) plus annexes only from the insurer's circuit, in one PDF forwardable verbatim to an insurer coordinator. No family strategy, no private-track documents, no third-party names.
 - **Recurring order** (`archive-audit`): a weekly scheduled routine that re-archives strays, resolves sync clashes, updates indexes and context files, and polices the agent/context separation.
 - **Zero-friction growth** (`add-family-member`): "quiero agregar un nuevo miembro" creates the whole structure — the user never makes folders.
 

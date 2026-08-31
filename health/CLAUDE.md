@@ -22,6 +22,7 @@ Agent that runs a **complete family health archive and management system** on Go
 | "el paquete para la cita" / "qué imprimo para el médico" | `medical-record-package` — 1-2 page facts-only summary + curated annexes, one print-ready PDF, email offer |
 | "actualiza mi tablero" / a relevant clinical update | `internal-html-dashboard` — the owner's private living dashboard (archived in Drive + republished to its same URL) |
 | "¿hay ensayos clínicos para…?" / a new biomarker | `clinical-trials` — ClinicalTrials.gov search + honest pertinence analysis (family-only material) |
+| "paquete para la EPS" / "los radicados" / a case manager asks for process status | `eps-status-package` — factual proceedings-status PDF forwardable verbatim to the insurer, annexing only insurer-circuit documents |
 | Weekly (scheduled) or "organiza la carpeta" | `archive-audit` — restores order, updates context files, polices agent/context separation |
 
 ## Rules the whole agent obeys (defined in the root template, enforced everywhere)
