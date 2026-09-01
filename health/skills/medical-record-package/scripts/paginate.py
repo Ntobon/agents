@@ -30,8 +30,13 @@ def paginate(src: str, dst: str | None = None, label: str | None = None) -> int:
         y = rect.height - 18  # 18 pt from the bottom edge
         text = TEXT.format(i=i, n=total)
         width = pymupdf.get_text_length(text, fontname="helv", fontsize=8.5)
-        page.insert_text((rect.width - 40 - width, y), text, fontname="helv", fontsize=8.5, color=(0.25, 0.25, 0.25))
+        x = rect.width - 40 - width
+        # White box behind the stamp: scans (CamScanner, letterheads) often carry marks in that corner
+        page.draw_rect(pymupdf.Rect(x - 4, y - 9, x + width + 4, y + 4), color=None, fill=(1, 1, 1), overlay=True)
+        page.insert_text((x, y), text, fontname="helv", fontsize=8.5, color=(0.25, 0.25, 0.25))
         if label:
+            lw = pymupdf.get_text_length(label, fontname="helv", fontsize=8.5)
+            page.draw_rect(pymupdf.Rect(36, y - 9, 44 + lw, y + 4), color=None, fill=(1, 1, 1), overlay=True)
             page.insert_text((40, y), label, fontname="helv", fontsize=8.5, color=(0.45, 0.45, 0.45))
     target = dst or src
     if target == src:
