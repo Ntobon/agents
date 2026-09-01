@@ -63,6 +63,7 @@ Technical flow:
 2. Convert to PDF with Edge headless (always available on Windows):
    `& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless --disable-gpu --print-to-pdf="<out>.pdf" --no-pdf-header-footer "file:///<path to html>"`
 3. Merge summary + annexes into one PDF with `pypdf` (`python -m pip install pypdf` if missing). If merging fails, deliver the folder with numbered files (`01 Resumen.pdf`, `02 …`) — the print order must be obvious.
+4. **Paginate the merged PDF — last step, mandatory (design rule, 2026-09-01):** `python scripts/paginate.py "00 Paquete médico - … .pdf" --label "<Patient> · paquete médico <YYYY-MM-DD>"`. It stamps "Pág. X de Y" on the bottom-right of **every** sheet (and patient + date bottom-left) on the already merged and normalized PDF. Without it, the summary's "(anexo N, pág. M)" references are useless on paper: the doctor has no way to know which page they are on. Paginate after merging so the printed number matches exactly what the summary cites; afterwards verify that a sampled reference from the summary matches the number stamped on that sheet.
 
 ## Annex curation
 
@@ -125,3 +126,4 @@ When delivering the package, **offer to send it by email** — that's how it rea
 - [ ] Every key document with a digital source (Word/.docx) goes as the original converted to PDF, not just an own transcription.
 - [ ] Every order, prescription, or signed document goes as a **scan of the original** (`scripts/scan_document.py` on the photo), never as transcription.
 - [ ] All pages of the merged `00 Paquete` measure 612×792 (portrait letter) — verified with pypdf before delivering.
+- [ ] The merged `00 Paquete` carries **"Pág. X de Y" printed on every sheet** (`scripts/paginate.py`, after merging) and the stamped number matches the summary's references.
