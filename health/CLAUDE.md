@@ -17,6 +17,7 @@ Agent that runs a **complete family health archive and management system** on Go
 | The user says / happens | What runs |
 |---|---|
 | "quiero instalarlo" / new family | `health-setup` — Drive integration, root folder + CLAUDE from template, plugin, weekly audit |
+| "puebla el sistema con la familia de ejemplo" / learning or demoing before having real documents | `health-setup` (demo mode) — copies the fictional family from [demo/](demo/README.md): one archived member plus an inbox of two documents to ingest live |
 | "quiero agregar un nuevo miembro" | `add-family-member` — folder + pattern 01-06 + personal CLAUDE.md, zero manual folder-making |
 | A new exam/document arrives (chat, photo, email) | Archive per the pattern (raw → `06 - Originales`, renamed copy, transcription, trend table, index) — then offer the updated report |
 | "hazme el informe de salud" / "el informe actualizado" | `personal-health-report` — age-adapted PDF for the patient, update mode vs the previous one |

@@ -29,6 +29,14 @@ Say **"quiero instalarlo"** — `health-setup` guides everything with zero comma
 
 Manual plugin install: claude.ai → Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add; or `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents` in Claude Code.
 
+## Try it with the demo family
+
+Say **"puebla el sistema con la familia de ejemplo"** and the agent seeds a fully fictional family ([demo/](demo/README.md)): one member already archived per the pattern (two lab panels with trend, a consult note, a signed order, three open pendings) plus an inbox of two raw documents whose archiving closes those pendings. Every use case below can be run on it in minutes, with nothing real exposed. Delete the folder when done.
+
+## Local requirements (Claude Code on a computer)
+
+Cloud sessions (claude.ai, mobile) need nothing installed. For local sessions the skills' scripts use: **Python 3.10+** with `pymupdf`, `opencv-python`, `numpy`, `pillow`, `pypdf` (scanning, paginating and merging PDFs); **Node 18+** (the health report builder, `docx` package installed by the skill on first run); and, for the health report's PDF export, **Microsoft Word** on Windows or **LibreOffice** elsewhere. Missing pieces degrade gracefully: the agent says what it could not produce and delivers the rest.
+
 ## What it does NOT do
 
 It doesn't diagnose, doesn't replace a medical consultation, doesn't dose medication, and never invents clinical data — every fact must trace to a dated document.

@@ -1,6 +1,6 @@
 ---
 name: health-setup
-description: Guided zero-command onboarding of the family health system for a new family — Google Drive integration (desktop app, offline mode, Drive connector so cloud sessions read/write the same archive), root folder and root CLAUDE.md from the template, plugin install tied to the repository, the weekly archive-audit routine, and a live verification with a first document. Use when the user says "quiero instalarlo", "install this", "monta el sistema de salud", "configurar el agente de salud", or when another skill of this agent can't find a health folder that follows the pattern.
+description: Guided zero-command onboarding of the family health system for a new family — Google Drive integration (desktop app, offline mode, Drive connector so cloud sessions read/write the same archive), root folder and root CLAUDE.md from the template, plugin install tied to the repository, the weekly archive-audit routine, and a live verification with a first document. Also seeds the fictional demo family for learning and demos. Use when the user says "quiero instalarlo", "install this", "monta el sistema de salud", "configurar el agente de salud", "puebla el sistema con la familia de ejemplo", "seed the demo family", "quiero probarlo con datos de ejemplo", or when another skill of this agent can't find a health folder that follows the pattern.
 ---
 
 # Health Setup — guided onboarding (zero commands for the user)
@@ -42,6 +42,14 @@ Create a scheduled task on the platform whose prompt is: run the `archive-audit`
 
 ## Phase 5 — Live verification (the system's first heartbeat)
 Ask the user for any first document (any lab PDF, even an old one) and archive it end to end: raw to `06 - Originales\<year>\` + renamed copy + transcription + line in the member's index. **If that works, the system is alive.** Then show what they can ask for from now on: "archívame este examen", "hazme el informe de salud", "el paquete para la cita", "mi tablero".
+
+## Demo mode — seed the fictional family (no real data needed)
+Trigger: "puebla el sistema con la familia de ejemplo", "seed the demo family", "quiero probarlo con datos de ejemplo", or a user who wants to learn or demo the agent before having real documents. Everything in [demo/](../../demo/README.md) is invented (people, doctors, IDs, values), so it can be shown to anyone.
+
+1. Locate the plugin's `demo/` folder (next to `skills/` in the installed plugin) and copy `demo/family/` into the user's Drive as `Salud (demo)\` (or inside their real health root if they already have one, as a sibling of the real members — never inside a real member's folder). Copy `demo/inbox/` next to it as `Bandeja de entrada (demo)\`.
+2. Do not edit the copied files beyond the Drive path line in the root `CLAUDE.md`; the folder is already consistent (index, trend, pendings).
+3. Say what is there and what to try, in this order: archive the two inbox documents (each closes a pending), generate the health report, the medical package, the dashboard, then add a member. The full list is in `demo/README.md`.
+4. When the user is done: offer to delete `Salud (demo)\` and the inbox; nothing else references them. A demo folder never mixes with a real family's audit or reports.
 
 ## Error handling
 - **Drive not mounted locally**: the cloud-only mode still works (connector); note that local sessions need Drive for Desktop and continue.

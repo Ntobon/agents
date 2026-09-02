@@ -1,7 +1,7 @@
 {
   "name": "health",
   "description": "Family health management system on Google Drive: per-member medical archive with a strict documentary pattern, personal health reports (PDF, Spanish), printable facts-only medical packages for appointments, private management dashboards, clinical-trials surveillance, and a recurring audit — usable from desktop, web, and mobile against the same files.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": {
     "name": "Nicolás Tobón"
   }
