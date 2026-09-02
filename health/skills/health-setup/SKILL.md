@@ -34,7 +34,7 @@ The archive lives in Google Drive so the SAME files are available to every surfa
 
 ## Phase 3 — Install the plugin tied to the repo
 Same pattern as the methodology (see the index repo):
-- **Claude Code** (Claude runs it): `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents`.
+- **Claude Code** (Claude runs it, the user never types a command): `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents`. In the Claude desktop app's Code tab the user just asks in the chat ("instala el plugin health del marketplace Ntobon/agents") and approves the permission prompt; the click alternative is `/plugin` → Marketplaces → Add → `Ntobon/agents` → Discover → health → Install.
 - **claude.ai** (web + mobile): Customize → Plugins → Add → Add marketplace → *Add from a repository* → `Ntobon/agents` → **Sync automatically** → Sync → **Add**. If "Repository not accessible": "Install the Claude GitHub App" (the user's click; may require a GitHub account — guide its creation if needed).
 
 ## Phase 4 — Schedule the weekly audit

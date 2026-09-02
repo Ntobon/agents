@@ -27,7 +27,7 @@ Google Drive is the storage backbone: the same archive is available to local Cla
 
 Say **"quiero instalarlo"** — `health-setup` guides everything with zero commands: Google Drive app + offline mode + connector, the master folder and root CLAUDE.md from the template, the plugin (synced to `Ntobon/agents`), the weekly audit, and a live verification archiving a first document.
 
-Manual plugin install: claude.ai → Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add; or `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents` in Claude Code.
+Manual plugin install: claude.ai → Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add. In the Claude desktop app (Code tab) with no terminal: paste *"Instala el plugin health del marketplace Ntobon/agents y confírmame la versión"* and approve the permission prompt, or type `/plugin` → Marketplaces → Add → `Ntobon/agents` → Discover → health → Install. CLI users: `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents`.
 
 ## Try it with the demo family
 
