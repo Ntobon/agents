@@ -27,7 +27,7 @@ Google Drive is the storage backbone: the same archive is available to local Cla
 
 Say **"quiero instalarlo"** — `health-setup` guides everything with zero commands: Google Drive app + offline mode + connector, the master folder and root CLAUDE.md from the template, the plugin (synced to `Ntobon/agents`), the weekly audit, and a live verification archiving a first document.
 
-Manual plugin install: claude.ai → Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add. In the Claude desktop app (Code tab) with no terminal: paste *"Instala el plugin health del marketplace Ntobon/agents y confírmame la versión"* and approve the permission prompt, or type `/plugin` → Marketplaces → Add → `Ntobon/agents` → Discover → health → Install. CLI users: `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents`.
+Manual plugin install: claude.ai → Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add. In the Claude desktop app (Code tab), no terminal and no technical vocabulary for the person: open the health folder as the project, paste *"Instala el agente de salud familiar. Viene del marketplace Ntobon/agents, plugin health. Instala también todo lo que ese agente necesite para funcionar en este computador y avísame cuando esté listo, sin explicarme los detalles técnicos."* and approve the permission prompts (or switch the app to automatic permissions). Claude installs the plugin and every local dependency itself. Click alternative: `/plugin` → Marketplaces → Add → `Ntobon/agents` → Discover → health → Install. CLI users: `claude plugin marketplace add Ntobon/agents` + `claude plugin install health@ntobon-agents`.
 
 ## Try it with the demo family
 
@@ -35,7 +35,7 @@ Say **"puebla el sistema con la familia de ejemplo"** and the agent seeds a full
 
 ## Local requirements (Claude Code on a computer)
 
-Cloud sessions (claude.ai, mobile) need nothing installed. For local sessions the skills' scripts use: **Python 3.10+** with `pymupdf`, `opencv-python`, `numpy`, `pillow`, `pypdf` (scanning, paginating and merging PDFs); **Node 18+** (the health report builder, `docx` package installed by the skill on first run); and, for the health report's PDF export, **Microsoft Word** on Windows or **LibreOffice** elsewhere. Missing pieces degrade gracefully: the agent says what it could not produce and delivers the rest.
+The person installs nothing: `health-setup` (Phase 1b) installs and verifies all of this itself through permission prompts. Cloud sessions (claude.ai, mobile) need nothing installed. For local sessions the skills' scripts use: **Python 3.10+** with `pymupdf`, `opencv-python`, `numpy`, `pillow`, `pypdf` (scanning, paginating and merging PDFs); **Node 18+** (the health report builder, `docx` package installed by the skill on first run); and, for the health report's PDF export, **Microsoft Word** on Windows or **LibreOffice** elsewhere. Missing pieces degrade gracefully: the agent says what it could not produce and delivers the rest.
 
 ## What it does NOT do
 

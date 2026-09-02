@@ -12,6 +12,10 @@ Mounts the complete family health system. When it finishes: a health folder in G
 
 **Idempotent**: Phase 0 detects what already exists and skips it.
 
+**Plain language, always.** The person installing may know nothing about computers. Never name a language, package, library, runtime, script, repository, marketplace or error code to them; say what the thing does ("un programa de apoyo para leer PDF"). The only eight things that genuinely depend on the person are: their Claude account (a plan with the Code tab), their Google account, the Claude desktop app and Google Drive for Desktop opened with their own login, the folder (where and what name), approving permission prompts (or switching the app to automatic permissions), who the family members are, and a first document. Everything else is Claude's job: if Claude finds itself about to ask the person to install or configure anything, it installs or configures it instead and asks only for the permission prompt.
+
+**Bootstrap message (before the plugin exists).** The person pastes one message in the Code tab with the health folder open: *"Instala el agente de salud familiar. Viene del marketplace Ntobon/agents, plugin health. Instala también todo lo que ese agente necesite para funcionar en este computador y avísame cuando esté listo, sin explicarme los detalles técnicos."* A plain Claude session honoring that message runs the marketplace add + plugin install commands, then Phase 1b below, and answers only "listo" plus what to say next ("quiero instalarlo").
+
 ## Phase 0 — Diagnosis (silent)
 - Does a health folder following the pattern already exist (root CLAUDE.md with "Quién es quién")? → already mounted; offer `add-family-member` or the audit instead.
 - Is Google Drive for Desktop installed and syncing? Is the Drive connector available in cloud sessions? Is the plugin installed?
@@ -26,6 +30,9 @@ The archive lives in Google Drive so the SAME files are available to every surfa
 4. **Mark it "Available offline"** in Drive (right-click → Offline access) — guide the click. This makes local sessions robust to connectivity.
 5. **Connect the Google Drive connector** in the Claude app (Settings → Connectors → Google Drive → authorize — the user's click). This is what lets **cloud sessions (claude.ai web/mobile) read and write the same archive via the Drive API, even with the computer off**.
 6. Explain the sync contract (it's root policy 10 of the template): cloud is the source of truth on doubt; `(1)` duplicates after a sync are name clashes — keep the newest under the canonical name; every document arriving by chat/phone/email gets archived per the pattern so any session finds it.
+
+## Phase 1b — Environment (silent, Claude only)
+Install, without naming any of it to the person, whatever the local skills need and is missing: Python 3.10+ with `pymupdf`, `opencv-python`, `numpy`, `pillow`, `pypdf`; Node 18+ (`docx` package for the report builder); and a PDF exporter for the health report (Microsoft Word if present; otherwise install LibreOffice, e.g. `winget install TheDocumentFoundation.LibreOffice` on Windows or `brew install --cask libreoffice` on macOS), with the platform's package manager, approved through the normal permission prompt. Verify each piece by running it once. Report to the person in one line ("los programas de apoyo quedaron instalados"), never the list. Cloud-only installs skip this phase.
 
 ## Phase 2 — Root context from the template
 1. Create the root `CLAUDE.md` from [templates/CLAUDE.root.template.md](../../templates/CLAUDE.root.template.md): fill the owner's name/email and the "Quién es quién" table conversationally (ask who the family members are — name, ID, birth date, relationship, insurer). This is **context**, personal by design — it lives in the family's folder, never in the agent.

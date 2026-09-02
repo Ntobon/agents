@@ -8,9 +8,7 @@ Send this checklist; each item is the attendee's own click, Claude cannot do it 
 
 1. A Claude account with **Claude Code** access, signed in on the **Claude desktop app** (the Code tab must be visible next to Chat). Nobody opens a terminal at any point.
 2. **Google account + Google Drive for Desktop** installed and syncing (the drive letter or `~/Google Drive` visible).
-3. **Python 3.10+** with `pymupdf opencv-python numpy pillow pypdf` (`pip install ...`), and **Node 18+**. Only needed for local sessions: scanning, paginating and merging PDFs, building the health report.
-4. Windows: **Microsoft Word** (PDF export of the health report). macOS/Linux: LibreOffice. Without either, the report is delivered as `.docx`.
-5. Nothing to clone: the repo `Ntobon/agents` is public and the plugin installs from it.
+3. Nothing else. Python, Node, the PDF libraries and a PDF exporter (Word or LibreOffice) are installed by Claude itself during the install message, through permission prompts; the attendee never hears those names. The repo `Ntobon/agents` is public, so no GitHub account either.
 
 ## Agenda (120 minutes)
 
@@ -29,7 +27,7 @@ Send this checklist; each item is the attendee's own click, Claude cannot do it 
 2. Open the Claude desktop app, **Code** tab, *Open project*, pick that folder.
 3. Paste this message in the chat and approve the permission prompt(s) that show the command Claude is about to run:
 
-   > Instala el plugin health del marketplace Ntobon/agents (repositorio público de GitHub) y confírmame la versión instalada.
+   > Instala el agente de salud familiar. Viene del marketplace Ntobon/agents, plugin health. Instala también todo lo que ese agente necesite para funcionar en este computador y avísame cuando esté listo, sin explicarme los detalles técnicos.
 
    Click alternative: type `/plugin` in the chat → Marketplaces → Add → `Ntobon/agents` → Discover → health → Install.
 4. In the same chat say **"quiero instalarlo"**. The `health-setup` skill takes over: Drive integration, root `CLAUDE.md` from the template, weekly audit, first-document heartbeat. For claude.ai (web and mobile): Customize → Plugins → Add marketplace → *Add from a repository* → `Ntobon/agents` → Sync automatically → Add, plus the Google Drive connector.
