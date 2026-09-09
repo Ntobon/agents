@@ -20,8 +20,8 @@
   h1 { font-size: 15pt; margin: 0; letter-spacing: -0.2px; }
   .h-fecha { font-size: 9.5pt; color: #333; white-space: nowrap; }
   .h-datos { font-size: 9.5pt; color: #333; margin-top: 2px; }
-  .h-motivo { font-size: 10.5pt; margin-top: 4px; }
-  .h-motivo b { text-transform: uppercase; letter-spacing: 0.4px; font-size: 9pt; }
+  .h-resumen { font-size: 10.5pt; margin-top: 4px; }
+  .h-resumen b { text-transform: uppercase; letter-spacing: 0.4px; font-size: 9pt; }
 
   /* Lo esencial */
   .esencial {
@@ -68,7 +68,7 @@
       <div class="h-fecha">Resumen al <!-- FECHA DEL RESUMEN --></div>
     </div>
     <div class="h-datos"><!-- CC · fecha de nacimiento (edad) · aseguradora si aporta --></div>
-    <div class="h-motivo"><b>Motivo</b> — <!-- MOTIVO DE LA CITA / ESTUDIO --></div>
+    <div class="h-resumen"><b>Resumen</b> — <!-- ONE-LINE CASE SUMMARY UP TO THE SUMMARY DATE. No "appointment reason", no what it is for, no what will be discussed (rule of 2026-09-08). --></div>
   </header>
 
   <div class="esencial">
@@ -94,7 +94,7 @@
   <h2 class="sec">Cronología relevante</h2>
   <table>
     <tr><th>Fecha</th><th>Hecho</th><th>Fuente</th></tr>
-    <!-- Solo hechos que aportan al motivo. La fuente cita el examen (y n.º de anexo si va adjunto). -->
+    <!-- Past, documented facts only. No future appointments, no "pending" items. The source cites the exam (and annex number if attached). -->
   </table>
 
   <h2 class="sec">Resultados clave</h2>

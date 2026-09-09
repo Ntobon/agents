@@ -25,7 +25,7 @@ The summary stays at 1-2 pages **always**: when the file grows, what rises is th
 ## Inputs
 
 - **Patient:** detect from context or from the folder being worked in. If ambiguous, ask.
-- **Reason for the appointment:** specialty or study (ultrasound, surgery, follow-up, ER…). It defines what gets prioritized and which annexes go. If not given, ask — curation depends on it.
+- **Reason for the appointment:** specialty or study (ultrasound, surgery, follow-up, ER…). It defines what gets prioritized and which annexes go. If not given, ask — curation depends on it. **It is a working input, not text in the document:** the summary carries no "Motivo", never says which appointment it is for, nor what will be discussed (design rule, 2026-09-08 — see "No future, no agenda, no steering").
 - **Cut-off date:** today, unless another is requested.
 
 ## Sources
@@ -39,12 +39,13 @@ Read before writing: the patient's `CLAUDE.md`, their `00 Índice general.md`, a
 - **Every cited exam carries who performed it and where** (the professional who signs the report and the institution, as stated in it) — that is factual data, not opinion, and doctors transcribe it into their own notes (verified in a real consult: the surgeon copied the performer citations as he read). Short format after the exam: "Endoscopia digestiva alta (15-ago-2026, Dr. J. Pérez, Clínica Central)". This doesn't touch the previous rule: name the performer as the exam's author, never their verbal opinions.
 - **If a report says "descartar X" or "impresión diagnóstica: X", transcribe it with that exact modality** — never upgrade it to a confirmed diagnosis or soften it.
 - **Always exclude:** any doctor's verbal or private assessments; comparisons or disagreements between doctors; the family's decisions, strategies, or communication line (including any rule about what the patient is told); administrative pendings (authorizations, insurer paperwork); management plans, feelings, and family logistics (root policy 13 — that lives in the management files); own analysis or hypotheses; and any mention of AI or generated reports.
-- **Prioritize by relevance to the appointment's reason**, not chronology: what changes decisions goes first. A normal value only enters if its normality is informative (e.g. "sangre oculta negativa ×2").
+- **Prioritize by relevance to the appointment's reason**, not chronology: what changes decisions goes first. A normal value only enters if its normality is informative (e.g. "sangre oculta negativa ×2"). Priority shows in the **order**, never in sentences that explain it.
+- **No future, no agenda, no steering (design rule, 2026-09-08).** The document is a snapshot of what is documented up to the summary date, written so any experienced physician can interpret it **without directional bias**. Concretely: (a) **no future data** — no scheduled appointments, no upcoming dates, no "follow-up assigned for…": they go stale and are not clinical facts; an unfulfilled order reads "not performed as of this summary"; (b) **no "pending medical definition"**, list of decisions still open, "next steps" or "questions for the doctor" — what is not yet in an order or a report does not exist for this document; it lives in the dashboard and the context files; (c) **no "Motivo"** or sentence stating which appointment it is for or what will be discussed; the header carries a one-line case summary, nothing else; (d) **cite the source, don't qualify it**: "consult of 2026-09-04, Dr. X" is enough — not "verbal", "no written note", "as told by the family" in every sentence (a single attribution for a family-reported fact, e.g. "referido por la familia el 8-sep", is fine, because it is the source); (e) **neutral titles and adjectives**: no "no contraindications", "conditions the timing", "to plan the resection", "requires reading", "the only new finding" — that is interpretation; the bare fact ("ECG del 8-sep-2026 — sin interpretación escrita") says it all. Past, documented facts do stay even when they sound administrative, if they are clinical: "everything ordered on 28-Aug is done" is objective and remains.
 - **Fixed footer:** `Resumen preparado por la familia a partir de los informes originales adjuntos — [fecha]. Cada dato es verificable contra el anexo citado.`
 
 ## Summary structure (use `assets/summary_template.html`)
 
-1. **Compact header:** name, ID, age, summary date, and appointment reason.
+1. **Compact header:** name, ID, age, basic preoperative data when documented (blood type with its source, allergies, prior surgeries, habits), summary date, and **a one-line case summary** — no "appointment reason" nor what it is for (rule of 2026-09-08).
 2. **Lo esencial** — box with 3-5 prioritized lines: what the doctor must know even if they read nothing else.
 3. **Diagnósticos activos** — table: diagnosis · since · source.
 4. **Medicación actual** — table: medication · dose · frequency.
@@ -118,6 +119,7 @@ When delivering the package, **offer to send it by email** — that's how it rea
 - [ ] Every fact has a date and source exam; abnormal ones have value + reference.
 - [ ] No sentence attributes opinions to a person; findings are cited by the exam.
 - [ ] Zero mentions of AI, generated reports, family decisions, or insurer paperwork.
+- [ ] **Zero future and zero steering:** no upcoming appointments or dates, no "Motivo", no "pending definition" or "next steps", no "verbal / no written note", no titles or adjectives that interpret ("no contraindications", "conditions…", "requires…"). Quick test: `grep -i "motivo\|pendiente de defin\|sin nota\|verbal\|contraindic\|condicion\|requiere"` over the HTML must return nothing, and no date in the text may be later than the summary date.
 - [ ] The summary fits in 1-2 pages and "Lo esencial" stands alone.
 - [ ] Annexes match 1:1 what's cited and follow the list's order.
 - [ ] Every cited exam says who performed it and where, and carries its "(anexo N, pág. M)" reference — with at least two references verified against the merged PDF.
