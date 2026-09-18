@@ -33,10 +33,18 @@ Read, for the patient: `CLAUDE.md` (including the channels section), `MEMORY.md`
 
 ### 1. Browser
 
-- Use the browser the context names. If several are connected and the context does not settle it: on request, ask; scheduled, try each and use the one that has the mailbox session open.
+**Identify the right profile.** The browser tool only shows "Browser 1", "Browser 2"…: those names do not say whose profile each one is, and several profiles may have the extension. Resolve it in this order, without asking:
+
+1. **List the connected browsers.** If the context carries the patient profile's device identifier (`deviceId`) and it is in the list, select it. The `deviceId` is stable across days for the same profile.
+2. **If none is connected** (the browser is closed, or open only with profiles that lack the extension): `python scripts/perfiles_navegador.py --cuenta <mailbox account>` tells which profile folder has the extension for that account; `--abrir "<folder>" --url <mailbox URL>` opens the browser with that profile. The extension connects on its own within seconds: wait ~8 s and list again.
+3. **If several are connected and no `deviceId` matches:** select each one, open the mailbox, and keep the one whose title shows the patient's account. Write that `deviceId` into the context for next time.
+4. **Final test, always:** the mailbox tab title contains the account from the context. Without that, read nothing.
+
+The script reads only each profile's name and account and whether the extension folder exists; it never touches history, passwords, or autofill. The profile's window must **stay open** when the run ends: it is what keeps the extension connected for the next round.
+
 - Create your own tab group. **A tab left in the background freezes** (screenshots and clicks by reference time out): on that symptom, open a new tab at the same URL instead of retrying.
 - Before reading a mailbox, **verify in the tab title that the account is the one in the context**. If it is another account, do not read: report.
-- When done, close the tabs the run opened. Never sign out of anything.
+- When done, close the tabs the run opened (not the profile's window). Never sign out of anything.
 
 ### 2. Mailbox
 
@@ -92,8 +100,8 @@ For each item: what changes, which deadline moves, what it contradicts, who need
 ```markdown
 ## Monitoreo de canales
 
-- **Navegador:** <which one and how to recognize it>
-- **Buzón:** <account> · pertinent senders: <list> · keywords: <list>
+- **Navegador:** <browser> · profile folder: <e.g. "Profile 7"> · profile name: <…> · extension `deviceId`: <…> (filled in the first time it is identified)
+- **Buzón:** <account> · URL: <…> · pertinent senders: <list> · keywords: <list>
 - **Portal de la aseguradora:** <base URL and sections> · sign-in is done by <whom> (never the agent)
 - **Otros portales:** <URL> · what is looked up
 - **Autorizaciones permanentes del titular:** <download attachments from the listed senders: yes/no> · <submit such-and-such portal's lookup form with the patient's ID: yes/no>
