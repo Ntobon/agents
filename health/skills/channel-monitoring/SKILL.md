@@ -52,7 +52,7 @@ The script reads only each profile's name and account and whether the extension 
 2. Pick what is pertinent using the context's sender and keyword lists; discard advertising. **Check spam too**, same date filter.
 3. For each pertinent message: open it, extract the full text, note sender, recipients, date and time, subject, and attachments.
 4. **Attachments** (if the context authorizes downloading): the attachment's download button, located by element search and clicked by reference; verify the file reached the downloads folder; read it in full.
-5. **Messages without attachments that matter as proof:** full-resolution screenshot, recovered to disk with `scripts/recuperar_capturas.py` (browser screenshots live in the session transcript, not on disk).
+5. **Messages without attachments that matter as proof:** full-resolution screenshot, recovered to disk with `scripts/recuperar_capturas.py` (browser screenshots live in the session transcript, not on disk). For `--desde`, use the **UTC time the round started**, not the estimated time of the screenshot: if the filter falls after the capture, the script returns zero without raising an error.
 6. Record what **was expected and did not arrive** (a reply with a deadline, a promised confirmation): absence is also a dated fact.
 
 ### 3. Insurer portal
