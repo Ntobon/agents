@@ -26,6 +26,7 @@ Agent that runs a **complete family health archive and management system** on Go
 | "¿hay ensayos clínicos para…?" / a new biomarker | `clinical-trials` — ClinicalTrials.gov search + honest pertinence analysis (family-only material) |
 | "paquete para la EPS" / "los radicados" / a case manager asks for process status | `eps-status-package` — factual proceedings-status PDF forwardable verbatim to the insurer, annexing only insurer-circuit documents |
 | Weekly (scheduled) or "organiza la carpeta" | `archive-audit` — restores order, updates context files, polices agent/context separation |
+| Daily (scheduled) or "escanea el correo" / "revisa si hay novedades" | `channel-monitoring` — read-only browser round over the patient's mailbox and portals: archives what is new, records what was expected and did not arrive, notifies only on news |
 
 ## Rules the whole agent obeys (defined in the root template, enforced everywhere)
 

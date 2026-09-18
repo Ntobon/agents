@@ -40,6 +40,19 @@ Documentación médica de **<nombre completo>**, <relación con el dueño de la 
 3. <Frente clínico abierto más urgente y su estado.>
 4. <Prioridades permanentes (p. ej. prevención de caídas).>
 
+## Monitoreo de canales
+
+(Opcional — solo si se quiere que la skill `channel-monitoring` haga rondas por los canales de este paciente. Sin esta sección, la skill no corre.)
+
+- **Navegador:** <cuál usar y cómo reconocerlo>
+- **Buzón:** <cuenta> · remitentes pertinentes: <lista> · palabras clave: <lista>
+- **Portal de la aseguradora:** <URL base y secciones> · ingreso: lo hace <quién> (nunca el agente)
+- **Otros portales:** <URL> · qué se consulta
+- **Autorizaciones permanentes del titular:** <descargar adjuntos de los remitentes listados: sí/no> · <enviar el formulario de consulta de tal portal con el documento del paciente: sí/no>
+- **Dominios a los que se puede seguir un enlace:** <lista>
+- **Carpeta legal:** <ruta, si existe>
+- **A quién se avisa:** <canal de notificación>
+
 ## Particularidades de archivo
 
 - <Lo que un futuro lector debe saber del estado del archivo de esta carpeta: qué falta, qué formatos, decisiones de organización.>
