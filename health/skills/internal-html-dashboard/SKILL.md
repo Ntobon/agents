@@ -27,25 +27,38 @@ The reader is **the owner on their phone**, managing the case in real time: betw
    - **Mobile measure**: each action block (one call, one task) must fit on a phone screen.
 7. **The visual craft is defined by the house artifact-design skill — ALWAYS load it together with this one (design rule, 2026-08-27).** This skill says WHAT goes on the board; the design skill says HOW it looks and navigates: tool-not-document (top level in tabs, not one long scroll), banned anti-patterns, outline pills with semantic color, comparison grids that collapse to cards on mobile, contrast and typography discipline. If an existing dashboard is still a linear scroll, the next big edit migrates it to tabs preserving ids and URL.
 
-8. **Medical terms stay, but with a glossary and tooltips (family request, 2026-09-05).** The dashboard uses real clinical vocabulary; so readers learn instead of stumbling, every term is explained **once** in the "Case dictionary" table (Reference tab) and propagated from there: each row carries `data-terms="alias|alias…"`, and a script wraps the **first occurrence of each term inside each content block** (`.concept`, `.stat`, `.lane`, `.sc`, table rows) in a `<span class="gl" tabindex="0">` with a dotted underline; tapping it opens a single tooltip (`#gl-tip`) with title, definition and a link to the dictionary. Rules: the table is the only source (never hand-duplicate definitions); do not wrap inside `<a>`, `<label>` (it would break the checkboxes), headings or `.fuentes`; everything in `try/catch`, and **without JS the dashboard stays intact** (terms remain plain text, the table is still there). Every new term entering the dashboard enters first as a dictionary row with its aliases.
+8. **Every technical term gets a tooltip, on every occurrence (family request, 2026-09-05; widened by the owner, 2026-09-22).** The dashboard uses real clinical vocabulary, but no reader should trip on a word. Single source: the glossary in the Glossary tab, as `<dl id="dicc">` with one row per term, `<div data-terms="alias|alias…"><dt>Term</dt><dd>Definition</dd></div>`. **Definitions are one or two short plain-language sentences** (a long definition does not fit in a tooltip). A script wraps **every occurrence** of every alias (not just the first) in `<span class="gl" tabindex="0">` with a dotted underline; tap or hover opens a single tooltip (`#tip`) with title and definition; Escape or tapping elsewhere closes it. Match with Unicode word boundaries (`\p{L}`) and aliases sorted longest first. Wrap inside task `<label>`s too (clicking the term calls `preventDefault` so the checkbox doesn't toggle); never inside `h1`, the tab bar, buttons, mono labels, the glossary itself, or SVG. Everything in `try/catch`: **without JS the dashboard stays intact** (terms as plain text, glossary visible). Every new term enters the glossary first; when writing, prefer the word that already has a row.
 
-## Structure of a living dashboard (the proven pattern)
+9. **Few words, big visuals (owner's rule, 2026-09-22: "it is very hard to read").** The dashboard is glanced at on a phone, not studied. Text budget: each card says **one thing in ≤ 2 lines**; no paragraph longer than 2 lines in the main views; a task = one line + one small subline. Whatever reads better drawn gets drawn:
 
-In order — sections exist if there's content; never pad:
+   | Job | Visual |
+   |---|---|
+   | Today's state | Colored hero band with one huge word (34-54 px) + one line |
+   | The numbers that define the situation | 3-4 figures at 34-40 px, each with a one-word reading in semantic color |
+   | The next days | One card per day, today's outlined in the accent |
+   | What to say or ask the doctor | Large quote (21-27 px) with an accent left border |
+   | Choosing between paths | Two side-by-side columns, steps as blocks joined by arrows, who proposes each |
+   | The evidence that decides | Two facing numbers (A ≈ B / A > B) at 44-64 px |
+   | Procedures on the body | Inline SVG schematic with numbered markers + a one-line legend per marker |
+   | A time against a benchmark | To-scale bar with the references marked and labeled |
+   | The history | Dot timeline: done · today · next |
 
-1. **Private banner** (warning + agreed communication line).
-2. **Header**: eyebrow, title, line "Actualizado: <date and rough time> (<what changed>)" — updated on EVERY edit.
-3. **Stat cards** (auto-fit grid): the 3-5 numbers/states that define the situation today.
-4. **"Lo nuevo hoy"**: what happened and what it means, in `concept` blocks (bold fact + plain explanation).
-5. **"Tus preguntas — respuestas francas"**: a living section. Every question the owner asks in chat gets answered here (numbered, dated), researched, with sources at the section's foot. Old answers stay while valid; they're retired when the case makes them obsolete.
-6. **Immediate agenda**: per-day blocks with persistent checkboxes (`localStorage`). **Checkbox `id`s are stable and never reused** (t1, t2, … t99) — recycling an id inherits another task's saved state in the owner's browser. Done tasks get ✅ in the text and stay a while as record before being retired.
-7. **Critical path / lanes** (private · insurer · legal, or whichever apply).
-8. **Scenarios**, each with "your move".
-9. **Concepts to keep straight** (`concept` blocks).
-10. **Emergencies** (critical box): signs that mean going to the ER without waiting.
-11. **Coordinated communication** (table): what is said to whom.
-12. **Datos rápidos** (table): phones, case numbers, doctors, medication, latest measurements.
-13. **Footer**: disclaimer (informational, doesn't replace the treating team) + source of truth (the patient's folder in Drive).
+   SVGs take their colors from the theme tokens (`fill="var(--accent)"`) so they work in both themes. Long analysis (sourced Q&A, quick-reference data, detailed scenarios) leaves the main views: it lives in the patient's index/MEMORY and, if wanted on the board, in a "Background" tab of collapsed `<details>`. Whatever is removed from the board is archived first — the dashboard is never the only place a fact lives.
+
+## Structure of a living dashboard (pattern of 2026-09-22)
+
+Top-level tabs, each 1-2 phone screens; a tab exists only if it has content:
+
+1. **Private banner**, one line (the owner's document, not for patients).
+2. **Header**: mono eyebrow (patient · age · condition), title, one line "Updated: <date>" — updated on EVERY edit.
+3. **Today**: hero band with the day's state (what, when, where) · 3-4 big figures with a one-word reading · the week as day cards · the question to ask, as a large quote. Emergency signs go here as a red card when active.
+4. **Decision** (when one is open): the paths side by side with who proposes each · the deciding evidence as two facing numbers · what would tip the balance, in 3 cards.
+5. **What they'll do / the body** (when procedures are coming): SVG schematic with numbered markers + one-line legend · care points for these days, in 3 cards.
+6. **Route**: to-scale bar of the time that matters against its benchmark · dot timeline (done / today / next).
+7. **Tasks**: grouped by when (today · day X · this week), checkboxes persisted in `localStorage`. **Checkbox `id`s are stable and never reused** (t1…t99) — recycling an id inherits another task's saved state in the owner's browser.
+8. **Glossary**: the single source for the tooltips (rule 8).
+9. **Background** (optional): long Q&A and analysis in collapsed `<details>`, with sources.
+10. **Footer**: disclaimer (informational, doesn't replace the treating team) + source of truth (the patient's folder in Drive).
 
 ## Update flow
 
@@ -61,5 +74,7 @@ In order — sections exist if there's content; never pad:
 - [ ] Meta viewport present; tables with overflow; grids collapse well when narrow.
 - [ ] "Actualizado:" reflects this edit.
 - [ ] No checkbox changed `id`; new ones use never-used ids.
+- [ ] Rule 9: no card exceeds 2 lines in the main views; what can be drawn is drawn (hero, figures, days, paths, schematic, bar, timeline).
+- [ ] Rule 8: every visible technical term has a glossary row and is underlined on every occurrence.
 - [ ] New clinical answers have sources; case data has file and date.
 - [ ] Republished to the SAME URL; the link is handed to the owner in chat.
