@@ -24,6 +24,7 @@ Agent that runs a **complete family health archive and management system** on Go
 | "el paquete para la cita" / "qué imprimo para el médico" | `medical-record-package` — 1-2 page facts-only summary + curated annexes, one print-ready PDF, email offer |
 | "actualiza mi tablero" / a relevant clinical update | `internal-html-dashboard` — the owner's private living dashboard (archived in Drive + republished to its same URL) |
 | "¿hay ensayos clínicos para…?" / a new biomarker | `clinical-trials` — ClinicalTrials.gov search + honest pertinence analysis (family-only material) |
+| "qué le pregunto al médico" / "con qué salgo de la cita" / "guía para la cita" | `appointment-guide` — 1-2 page companion sheet: the one decision to walk out with, three intervention moments, at most three questions as a ladder, scenario table, exit checklist |
 | "paquete para la EPS" / "los radicados" / a case manager asks for process status | `eps-status-package` — factual proceedings-status PDF forwardable verbatim to the insurer, annexing only insurer-circuit documents |
 | Weekly (scheduled) or "organiza la carpeta" | `archive-audit` — restores order, updates context files, polices agent/context separation |
 | Daily (scheduled) or "escanea el correo" / "revisa si hay novedades" | `channel-monitoring` — read-only browser round over the patient's mailbox and portals: archives what is new, records what was expected and did not arrive, notifies only on news |
