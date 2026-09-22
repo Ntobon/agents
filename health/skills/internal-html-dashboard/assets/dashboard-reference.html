@@ -1,0 +1,500 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reference dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<!--
+REFERENCE TEMPLATE — glanceable dashboard (rule of 2026-09-22: "few words, big visuals, a tooltip on every technical term").
+All content is a FICTITIOUS EXAMPLE: replace it with the case data, in the owner's language. Each block is a reusable component:
+  hero (today's state) · stats (3-4 figures) · week/day (next days) · quote (what to say) · fork/path/step (paths side by side)
+  vs (two facing numbers) · stack (scenarios as a to-scale bar) · stg (category bars with tooltips) · trajectory SVG
+  body-wrap + legend (anatomical schematic with markers) · chart/bar (time vs benchmark) · tl/ev (timeline) · task (checkboxes)
+  dicc (glossary: single source of the tooltips) · details.src (collapsed sources).
+Text rule: ≤ 2 lines per card. Tabs as anchors (works without JS). Light theme by default with a toggle.
+-->
+<style>
+  :root {
+    --bg: #f3f5f4; --surface: #ffffff; --surface-2: #e9eeec;
+    --ink: #17211e; --ink-soft: #4b5a55; --ink-faint: #6d7a76;
+    --line: rgba(23, 33, 30, .12);
+    --accent: #0f6b66; --accent-ink: #0a4f4b; --accent-soft: #dcefed;
+    --ok: #1e7a4c; --ok-soft: #e0f1e7; --warn: #955800; --warn-soft: #fbeed8; --crit: #b3261e; --crit-soft: #fae5e3;
+    --organ: #e2b3a2; --organ-2: #ecd0bd; --body: #eef2f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0f1614; --surface: #18221f; --surface-2: #202d29;
+      --ink: #e5ece9; --ink-soft: rgba(229,236,233,.74); --ink-faint: rgba(229,236,233,.52);
+      --line: rgba(255,255,255,.10);
+      --accent: #4fb3ac; --accent-ink: #86d3cd; --accent-soft: #15302d;
+      --ok: #5cc08c; --ok-soft: #14301f; --warn: #e0a44a; --warn-soft: #33270f; --crit: #ec7b72; --crit-soft: #3a1715;
+      --organ: #9a6555; --organ-2: #7a5244; --body: #1c2724;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0f1614; --surface: #18221f; --surface-2: #202d29;
+    --ink: #e5ece9; --ink-soft: rgba(229,236,233,.74); --ink-faint: rgba(229,236,233,.52);
+    --line: rgba(255,255,255,.10);
+    --accent: #4fb3ac; --accent-ink: #86d3cd; --accent-soft: #15302d;
+    --ok: #5cc08c; --ok-soft: #14301f; --warn: #e0a44a; --warn-soft: #33270f; --crit: #ec7b72; --crit-soft: #3a1715;
+    --organ: #9a6555; --organ-2: #7a5244; --body: #1c2724;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.5; }
+  .wrap { max-width: 880px; margin: 0 auto; padding-inline: 16px; padding-block: 12px 64px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  .private { font-size: 12.5px; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 10px; padding: 6px 12px; background: var(--surface); }
+  header { padding: 18px 0 6px; }
+  h1 { margin: 4px 0 0; font-size: clamp(28px, 7vw, 40px); font-weight: 800; letter-spacing: -.035em; line-height: 1.05; text-wrap: balance; }
+  .upd { color: var(--ink-faint); font-size: 13px; margin: 6px 0 0; }
+
+  .tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; gap: 2px; overflow-x: auto; background: var(--bg); border-bottom: 1px solid var(--line); margin: 12px -16px 0; padding: 0 16px; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { display: inline-flex; align-items: center; min-height: 48px; padding: 0 14px; font-weight: 700; font-size: 15px; color: var(--ink-soft); text-decoration: none; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+  .tab.activo { color: var(--accent-ink); border-bottom-color: var(--accent); }
+  .tab:focus-visible, .tema:focus-visible, .gl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .tema { margin-left: auto; min-width: 48px; min-height: 48px; border: 0; background: none; color: var(--ink-soft); font-size: 19px; cursor: pointer; }
+  .panel { padding-top: 22px; scroll-margin-top: 64px; display: grid; gap: 18px; }
+  .panel.oculto { display: none; }
+
+  h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
+  .blk { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 14px; }
+  .lead { color: var(--ink-soft); margin: 0; font-size: 15px; }
+
+  /* hero */
+  .hero { background: var(--accent); color: #fff; border-radius: 22px; padding: 24px 22px; display: grid; gap: 6px; }
+  :root[data-theme="dark"] .hero { color: #08201e; }
+  .hero .mono { color: rgba(255,255,255,.75); }
+  .hero .big { font-size: clamp(34px, 9vw, 54px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .hero .sub { font-size: 18px; font-weight: 600; opacity: .92; }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 2px; }
+  .num { font-size: 40px; font-weight: 800; letter-spacing: -.04em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .num small { font-size: 18px; font-weight: 700; letter-spacing: -.01em; color: var(--ink-soft); }
+  .ok-t { color: var(--ok); } .warn-t { color: var(--warn); } .crit-t { color: var(--crit); }
+
+  /* semana */
+  .week { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .day { border-radius: 16px; padding: 16px; background: var(--surface-2); display: grid; gap: 6px; align-content: start; }
+  .day.now { background: var(--accent-soft); outline: 2px solid var(--accent); }
+  .day .d { font-size: 30px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .day .t { font-size: 17px; font-weight: 700; }
+  .day .x { font-size: 14px; color: var(--ink-soft); }
+  .pill { justify-self: start; font-size: 12px; font-weight: 700; border: 1.5px solid currentColor; border-radius: 999px; padding: 2px 10px; }
+
+  .quote { font-size: clamp(21px, 5vw, 27px); font-weight: 700; letter-spacing: -.02em; line-height: 1.25; border-left: 4px solid var(--accent); padding: 4px 0 4px 16px; margin: 0; text-wrap: balance; }
+
+  /* decisión */
+  .fork { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .path { border-radius: 18px; padding: 18px; display: grid; gap: 10px; align-content: start; border: 2px solid var(--line); }
+  .path.a { border-color: var(--accent); }
+  .path h3 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
+  .who { font-size: 13.5px; color: var(--ink-soft); }
+  .steps { display: grid; gap: 6px; }
+  .step { background: var(--surface-2); border-radius: 12px; padding: 10px 12px; font-weight: 700; font-size: 15px; }
+  .arrow { text-align: center; color: var(--ink-faint); font-size: 18px; line-height: 1; }
+  .vs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 12px; text-align: center; }
+  .vs .num { font-size: clamp(44px, 12vw, 64px); }
+  .vs .eq { font-size: 26px; font-weight: 800; color: var(--ink-faint); padding-bottom: 14px; }
+  .tri { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .tri div { background: var(--surface-2); border-radius: 14px; padding: 14px; font-size: 15px; }
+  .tri b { display: block; font-size: 16px; margin-bottom: 2px; }
+
+  /* cuerpo */
+  .body-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: center; }
+  .body-wrap svg { width: 100%; height: auto; max-width: 380px; justify-self: center; }
+  .legend { display: grid; gap: 12px; }
+  .leg { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; }
+  .leg .n { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; font-weight: 800; color: #fff; }
+  .leg b { display: block; font-size: 17px; }
+  .leg span.s { font-size: 14px; color: var(--ink-soft); }
+
+  /* ruta */
+  .tl { display: grid; gap: 0; }
+  .ev { display: grid; grid-template-columns: 76px 22px 1fr; gap: 10px; align-items: start; }
+  .ev .f { font-weight: 800; font-size: 15px; text-align: right; padding-top: 1px; font-variant-numeric: tabular-nums; }
+  .ev .dot { position: relative; height: 100%; min-height: 44px; }
+  .ev .dot::before { content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+  .ev .dot::after { content: ""; position: absolute; left: 4px; top: 4px; width: 14px; height: 14px; border-radius: 999px; background: var(--ok); }
+  .ev.next .dot::after { background: var(--surface); border: 3px solid var(--accent); left: 3px; top: 3px; }
+  .ev.hoy .dot::after { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+  .ev:last-child .dot::before { bottom: 50%; }
+  .ev .w { padding-bottom: 14px; font-size: 15.5px; }
+  .ev .w small { display: block; color: var(--ink-faint); font-size: 13px; }
+  .chart { overflow-x: auto; }
+  .chart svg { width: 100%; min-width: 320px; height: auto; display: block; }
+
+
+  /* pronóstico */
+  .stack { overflow-x: auto; }
+  .stack svg { width: 100%; min-width: 320px; height: auto; display: block; }
+  .branches { display: grid; gap: 10px; }
+  .br { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 14px; background: var(--surface-2); }
+  .br .pct { font-size: 26px; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .br b { display: block; font-size: 16px; }
+  .br span.s { font-size: 14px; color: var(--ink-soft); }
+  .note { font-size: 13px; color: var(--ink-faint); margin: 0; }
+  details.src { font-size: 13px; color: var(--ink-soft); }
+  details.src summary { cursor: pointer; font-weight: 700; color: var(--ink); min-height: 44px; display: flex; align-items: center; }
+  details.src li { margin: 4px 0; }
+  details.src a { color: var(--accent-ink); word-break: break-word; }
+
+  .chart svg, .stack svg { max-width: 560px; margin: 0 auto; }
+  .stg { display: grid; gap: 8px; }
+  .stg-row { display: grid; grid-template-columns: 56px 1fr 46px; gap: 10px; align-items: center; }
+  .stg-row .lab { font-weight: 800; font-size: 16px; }
+  .stg-row .track { background: var(--surface-2); border-radius: 6px; height: 20px; overflow: hidden; }
+  .stg-row .fill { height: 100%; border-radius: 6px; }
+  .stg-row .val { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; }
+  .stg-sep { font-size: 12.5px; color: var(--ink-faint); padding: 2px 0 0 66px; }
+
+  /* tareas */
+  .task { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); }
+  .task:first-of-type { border-top: 0; }
+  .task input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--accent); flex: none; cursor: pointer; }
+  .task label { cursor: pointer; font-size: 16px; }
+  .task label small { display: block; font-size: 13px; color: var(--ink-faint); }
+  .when { font-weight: 800; font-size: 13px; color: var(--accent-ink); margin: 6px 0 -4px; }
+
+  /* glosario */
+  .dicc { display: grid; gap: 0; margin: 0; }
+  .dicc div { display: grid; grid-template-columns: 200px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .dicc div:first-child { border-top: 0; }
+  .dicc dt { font-weight: 800; }
+  .dicc dd { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+  /* tooltips */
+  .gl { border-bottom: 2px dotted var(--accent); cursor: help; }
+  #tip { position: absolute; z-index: 60; max-width: min(320px, calc(100vw - 32px)); background: var(--ink); color: var(--bg); border-radius: 12px; padding: 10px 13px; font-size: 14px; line-height: 1.4; display: none; }
+  #tip b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .75; margin-bottom: 2px; }
+
+  .foot { color: var(--ink-faint); font-size: 12.5px; text-align: center; margin-top: 10px; }
+  @media (max-width: 620px) {
+    .fork, .body-wrap { grid-template-columns: 1fr; }
+    .dicc div { grid-template-columns: 1fr; gap: 2px; }
+    .num { font-size: 34px; }
+  }
+  @media (prefers-reduced-motion: no-preference) { .tab, .day { transition: background .15s, color .15s; } }
+</style>
+
+<div class="wrap">
+  <div class="private">The owner's private board. Not for the patient.</div>
+
+  <header>
+    <div class="mono">Example patient · 70 · fictitious case</div>
+    <h1>Reference dashboard</h1>
+    <p class="upd">Updated Mon 13, evening · what changed, in one sentence</p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <a class="tab activo" data-tab="today" href="#panel-today">Today</a>
+    <a class="tab" data-tab="decision" href="#panel-decision">Decision</a>
+    <a class="tab" data-tab="outlook" href="#panel-outlook">Outlook</a>
+    <a class="tab" data-tab="body" href="#panel-body">What they'll do</a>
+    <a class="tab" data-tab="route" href="#panel-route">Route</a>
+    <a class="tab" data-tab="tasks" href="#panel-tasks">Tasks</a>
+    <a class="tab" data-tab="glossary" href="#panel-glossary">Glossary</a>
+    <button class="tema" id="btn-tema" type="button" aria-label="Toggle theme">☾</button>
+  </nav>
+
+  <section class="panel" id="panel-today">
+    <div class="hero">
+      <span class="mono">Tomorrow · Tue 14 · 7:00 am</span>
+      <span class="big">Surgery</span>
+      <span class="sub">Example hospital. Arrive fasting.</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="mono">Weight</span><span class="num">62<small> kg</small></span><span class="ok-t">▲ rising</span></div>
+      <div class="stat"><span class="mono">Albumin</span><span class="num">3.9</span><span class="ok-t">normal</span></div>
+      <div class="stat"><span class="mono">ECOG</span><span class="num">1</span><span class="ok-t">nearly normal</span></div>
+      <div class="stat"><span class="mono">Since diagnosis</span><span class="num">28<small> days</small></span><span class="ok-t">benchmark: &lt; 30</span></div>
+    </div>
+    <div class="blk">
+      <h2>This week</h2>
+      <div class="week">
+        <div class="day now"><span class="mono">Tue 14</span><span class="d">7:00</span><span class="t">Surgery</span><span class="x">Fasting from midnight.</span></div>
+        <div class="day"><span class="mono">Thu 16</span><span class="d">—</span><span class="t">Recovery</span><span class="x">Walk from day 1.</span><span class="pill warn-t">Watch</span></div>
+        <div class="day"><span class="mono">Fri 17</span><span class="d">10:00</span><span class="t">Follow-up</span><span class="x">Pathology result.</span><span class="pill" style="color:var(--accent-ink)">Key</span></div>
+      </div>
+    </div>
+    <div class="blk">
+      <span class="mono">The question for the ward round</span>
+      <p class="quote">"Doctor, what is the plan for these days?"</p>
+      <p class="lead">Only if the plan opens it: a second question. Nothing more.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-decision">
+    <div class="blk">
+      <h2>Two paths, both standard</h2>
+      <div class="fork">
+        <div class="path a"><span class="mono">Specialist A proposes</span><h3>Treatment first</h3>
+          <div class="steps"><div class="step">3 cycles</div><div class="arrow">↓</div><div class="step">Surgery</div><div class="arrow">↓</div><div class="step">3 more cycles</div></div>
+          <span class="who">For: what guidelines prefer.</span></div>
+        <div class="path"><span class="mono">Specialist B prefers</span><h3>Surgery first</h3>
+          <div class="steps"><div class="step">Surgery</div><div class="arrow">↓</div><div class="step">Treatment per pathology</div></div>
+          <span class="who">For: fixes the symptom at once.</span></div>
+      </div>
+    </div>
+    <div class="blk">
+      <span class="mono">Does the order matter? · example study</span>
+      <div class="vs">
+        <div><div class="num" style="font-size:clamp(30px,8vw,44px)">Option A</div></div>
+        <div class="eq">=</div>
+        <div><div class="num" style="font-size:clamp(30px,8vw,44px)">Option B</div></div>
+      </div>
+      <p class="lead">In that study both orders gave the same result.</p>
+      <p class="note"><b>Every median is explained next to it:</b> the point at which half the group was still alive; it is not a deadline for one person.</p>
+    </div>
+    <div class="blk">
+      <h2>What would tip the balance</h2>
+      <div class="tri">
+        <div><b class="crit-t">Warning sign</b>what triggers it and what is done.</div>
+        <div><b class="warn-t">Middle finding</b>what changes in the plan.</div>
+        <div><b class="ok-t">Good news</b>what to ask then.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-outlook">
+    <div class="blk">
+      <h2>What the road may find</h2>
+      <p class="lead"><b>How to read the figures:</b> "at 5 years, 6 in 10" = of 100 people in that scenario, about 60 are alive 5 years later.</p>
+      <div class="stack">
+        <svg viewBox="0 0 360 64" role="img" aria-label="Example scenarios">
+          <rect x="0" y="8" width="70" height="40" rx="8" fill="var(--crit)"/>
+          <rect x="72" y="8" width="34" height="40" fill="var(--warn)"/>
+          <rect x="108" y="8" width="142" height="40" fill="var(--ok)"/>
+          <rect x="252" y="8" width="108" height="40" rx="8" fill="var(--accent)"/>
+          <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="800" font-size="15" fill="#fff" text-anchor="middle"><text x="35" y="33">20%</text><text x="89" y="33">10%</text><text x="179" y="33">40%</text><text x="306" y="33">30%</text></g>
+        </svg>
+      </div>
+      <div class="branches">
+        <div class="br"><span class="pct crit-t">~20%</span><div><b>Unfavorable scenario</b><span class="s">What it means, in one line.</span></div></div>
+        <div class="br"><span class="pct warn-t">~10%</span><div><b>Doesn't reach the next step</b><span class="s">Why it happens.</span></div></div>
+        <div class="br"><span class="pct ok-t">~40%</span><div><b>Best scenario</b><span class="s">at 5 years, ~6 in 10.</span></div></div>
+        <div class="br"><span class="pct" style="color:var(--accent-ink)">~30%</span><div><b>Middle scenario</b><span class="s">at 5 years, ~3 in 10.</span></div></div>
+      </div>
+      <p class="note">Estimates built from published series; always state they are not an individual prediction.</p>
+    </div>
+    <div class="blk">
+      <span class="mono">5-year survival by stage · example figures</span>
+      <p class="lead">Tap each stage to see what it means.</p>
+      <div class="stg" role="img" aria-label="Example survival by stage">
+        <div class="stg-row"><span class="lab">I</span><span class="track"><span class="fill" style="display:block;width:80%;background:var(--ok)"></span></span><span class="val">80%</span></div>
+        <div class="stg-row"><span class="lab">II</span><span class="track"><span class="fill" style="display:block;width:55%;background:var(--accent)"></span></span><span class="val">55%</span></div>
+        <div class="stg-sep">Divider linking the chart to the scenarios</div>
+        <div class="stg-row"><span class="lab">III</span><span class="track"><span class="fill" style="display:block;width:25%;background:var(--warn)"></span></span><span class="val">25%</span></div>
+        <div class="stg-row"><span class="lab">IV</span><span class="track"><span class="fill" style="display:block;width:7%;background:var(--crit)"></span></span><span class="val">7%</span></div>
+      </div>
+    </div>
+    <div class="blk">
+      <h2>The real fear, named and answered</h2>
+      <p class="quote">The honest answer in one sentence.</p>
+      <div class="chart">
+        <svg viewBox="0 0 360 190" role="img" aria-label="Two trajectories compared">
+          <line x1="30" y1="160" x2="350" y2="160" stroke="var(--line)" stroke-width="1.5"/>
+          <line x1="30" y1="20" x2="30" y2="160" stroke="var(--line)" stroke-width="1.5"/>
+          <path d="M30,40 C150,40 240,44 280,52 C305,60 318,110 336,156" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M30,62 C110,78 200,104 336,156" fill="none" stroke="var(--ink-faint)" stroke-width="3" stroke-dasharray="6 5" stroke-linecap="round"/>
+          <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" font-weight="700">
+            <text x="40" y="32" fill="var(--accent-ink)">Curve A: the typical course</text>
+            <text x="222" y="100" fill="var(--accent-ink)">short decline</text>
+            <text x="60" y="110" fill="var(--ink-faint)">Curve B: the feared one</text>
+            <text x="34" y="178" fill="var(--ink-faint)">time →</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-body">
+    <div class="blk">
+      <h2>What they may do</h2>
+      <div class="body-wrap">
+        <svg viewBox="0 0 360 420" role="img" aria-label="Schematic with four numbered markers">
+          <path d="M92,12 C62,32 52,82 56,140 C61,222 72,330 96,408 L264,408 C288,330 299,222 304,140 C308,82 298,32 268,12 Z" fill="var(--body)" stroke="var(--line)" stroke-width="2"/>
+          <path d="M185,8 L185,106" fill="none" stroke="var(--organ)" stroke-width="12" stroke-linecap="round"/>
+          <path d="M185,104 C146,110 118,142 124,192 C130,248 192,266 236,234 C249,224 257,215 262,207" fill="none" stroke="var(--organ)" stroke-width="36" stroke-linecap="round"/>
+          <path d="M266,208 C290,218 294,252 274,270 C256,287 226,282 214,264" fill="none" stroke="var(--organ-2)" stroke-width="13" stroke-linecap="round"/>
+          <path d="M214,264 C168,252 148,288 180,302 C216,317 226,342 186,348 C146,353 140,372 176,384" fill="none" stroke="var(--organ-2)" stroke-width="13" stroke-linecap="round"/>
+          <circle cx="252" cy="213" r="17" fill="var(--crit)"/>
+          <path d="M126,56 C150,44 170,40 184,50" fill="none" stroke="var(--accent)" stroke-width="3"/>
+          <circle cx="126" cy="56" r="10" fill="var(--accent)"/>
+          <circle cx="150" cy="232" r="7" fill="none" stroke="var(--ink)" stroke-width="3"/>
+          <circle cx="222" cy="302" r="7" fill="none" stroke="var(--ink)" stroke-width="3"/>
+          <circle cx="112" cy="268" r="7" fill="none" stroke="var(--ink)" stroke-width="3"/>
+          <path d="M178,302 L104,326" fill="none" stroke="var(--warn)" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="102" cy="327" r="7" fill="var(--warn)"/>
+          <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="800" font-size="16" text-anchor="middle">
+            <circle cx="92" cy="40" r="15" fill="var(--accent)"/><text x="92" y="46" fill="#fff">1</text>
+            <circle cx="296" cy="184" r="15" fill="var(--crit)"/><text x="296" y="190" fill="#fff">2</text>
+            <circle cx="84" cy="236" r="15" fill="var(--ink)"/><text x="84" y="242" fill="var(--bg)">3</text>
+            <circle cx="72" cy="356" r="15" fill="var(--warn)"/><text x="72" y="362" fill="#fff">4</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <div class="leg"><span class="n" style="background:var(--accent)">1</span><div><b>Implantable port</b><span class="s">One line: where and what for.</span></div></div>
+          <div class="leg"><span class="n" style="background:var(--crit)">2</span><div><b>The lesion</b><span class="s">What it causes.</span></div></div>
+          <div class="leg"><span class="n" style="background:var(--ink);color:var(--bg)">3</span><div><b>Laparoscopy</b><span class="s">What it looks for.</span></div></div>
+          <div class="leg"><span class="n" style="background:var(--warn)">4</span><div><b>Feeding tube</b><span class="s">When it would be used.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-route">
+    <div class="blk">
+      <span class="mono">Days from diagnosis to treatment</span>
+      <div class="chart">
+        <svg viewBox="0 0 360 120" role="img" aria-label="Days vs benchmark">
+          <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" fill="var(--ink-faint)" text-anchor="middle">
+            <line x1="20" y1="72" x2="320" y2="72" stroke="var(--line)" stroke-width="1"/>
+            <text x="20" y="112">0</text><text x="95" y="112">15</text><text x="170" y="112">30</text><text x="245" y="112">45</text><text x="320" y="112">60</text>
+          </g>
+          <rect x="20" y="52" width="140" height="28" rx="6" fill="var(--accent)"/>
+          <text x="151" y="71" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="800" font-size="15" fill="#fff" text-anchor="end">28</text>
+          <line x1="170" y1="30" x2="170" y2="96" stroke="var(--ok)" stroke-width="2.5"/>
+          <text x="166" y="24" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700" font-size="11" fill="var(--ok)" text-anchor="end">benchmark &lt; 30</text>
+          <line x1="225" y1="40" x2="225" y2="96" stroke="var(--warn)" stroke-width="2.5" stroke-dasharray="4 3"/>
+          <text x="229" y="40" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700" font-size="11" fill="var(--warn)">median: 41</text>
+        </svg>
+      </div>
+    </div>
+    <div class="blk">
+      <h2>The route</h2>
+      <div class="tl">
+        <div class="ev"><span class="f">Mar 1</span><span class="dot"></span><span class="w">First test<small>What it showed</small></span></div>
+        <div class="ev"><span class="f">Mar 8</span><span class="dot"></span><span class="w">Diagnosis<small>What it confirmed</small></span></div>
+        <div class="ev hoy"><span class="f">Mar 14</span><span class="dot"></span><span class="w"><b>Today</b><small>What happens</small></span></div>
+        <div class="ev next"><span class="f">Mar 17</span><span class="dot"></span><span class="w"><b>Next</b><small>What to expect</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-tasks">
+    <div class="blk">
+      <h2>Tasks</h2>
+      <p class="when">Today</p>
+      <div class="task"><input type="checkbox" id="t1"><label for="t1">A task in one line<small>A subline with the needed detail</small></label></div>
+      <div class="task"><input type="checkbox" id="t2"><label for="t2">Ask for the plan on the round<small>Checkbox ids are never reused</small></label></div>
+      <p class="when">This week</p>
+      <div class="task"><input type="checkbox" id="t3"><label for="t3">Ask for the result in writing<small>Who, where</small></label></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-glossary">
+    <div class="blk">
+      <h2>Glossary</h2>
+      <p class="lead">Tap any dotted-underlined word to see its definition.</p>
+      <dl class="dicc" id="dicc">
+        <div data-terms="ECOG"><dt>ECOG</dt><dd>Scale 0-4 of how normally the person lives. 0 = no limitation.</dd></div>
+        <div data-terms="albumin"><dt>Albumin</dt><dd>Blood protein that reflects nutrition.</dd></div>
+        <div data-terms="implantable port"><dt>Implantable port</dt><dd>A reservoir under the chest skin joined to a large vein.</dd></div>
+        <div data-terms="laparoscopy"><dt>Laparoscopy</dt><dd>Surgery with a camera through small cuts.</dd></div>
+        <div data-terms="feeding tube"><dt>Feeding tube</dt><dd>A thin tube to feed or drain.</dd></div>
+        <div data-terms="stage"><dt>Stage</dt><dd>How far the disease has spread. It decides the treatment.</dd></div>
+        <div data-terms="median"><dt>Median</dt><dd>The point at which half the group was still alive. It describes the group; it is not a deadline for one person.</dd></div>
+        <div data-terms="round"><dt>Ward round</dt><dd>The doctor's daily visit to inpatients.</dd></div>
+        <div data-terms="I"><dt>Stage I</dt><dd>One-line plain definition.</dd></div>
+        <div data-terms="II"><dt>Stage II</dt><dd>One-line plain definition.</dd></div>
+        <div data-terms="III"><dt>Stage III</dt><dd>One-line plain definition.</dd></div>
+        <div data-terms="IV"><dt>Stage IV</dt><dd>One-line plain definition.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <p class="foot">Informational; doesn't replace the treating team. Source of truth: the patient's folder.</p>
+</div>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function () {
+  var btn = document.getElementById('btn-tema');
+  function setTema(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem('tablero-tema', t); } catch (e) {} btn.textContent = t === 'dark' ? '☀' : '☾'; }
+  var tema = 'light'; try { tema = localStorage.getItem('tablero-tema') || 'light'; } catch (e) {}
+  setTema(tema);
+  btn.addEventListener('click', function () { setTema(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); });
+
+  var tabs = document.querySelectorAll('.tab'), panels = document.querySelectorAll('.panel');
+  function activar(id) {
+    tabs.forEach(function (t) { t.classList.toggle('activo', t.dataset.tab === id); });
+    panels.forEach(function (p) { p.classList.toggle('oculto', p.id !== 'panel-' + id); });
+    try { localStorage.setItem('tablero-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function (ev) { ev.preventDefault(); activar(t.dataset.tab); window.scrollTo({ top: 0 }); }); });
+  var ini = 'today'; try { ini = localStorage.getItem('tablero-tab') || 'today'; } catch (e) {}
+  if (!document.getElementById('panel-' + ini)) ini = 'today';
+  activar(ini);
+
+  document.querySelectorAll('.task input').forEach(function (cb) {
+    var k = 'tablero-' + cb.id;
+    try { cb.checked = localStorage.getItem(k) === '1'; } catch (e) {}
+    cb.addEventListener('change', function () { try { localStorage.setItem(k, cb.checked ? '1' : '0'); } catch (e) {} });
+  });
+
+  try {
+    var defs = [];
+    document.querySelectorAll('#dicc > div').forEach(function (r) {
+      var t = r.querySelector('dt').textContent, d = r.querySelector('dd').textContent;
+      r.dataset.terms.split('|').forEach(function (a) { defs.push({ a: a, t: t, d: d }); });
+    });
+    defs.sort(function (x, y) { return y.a.length - x.a.length; });
+    var esc = function (s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+    var re = new RegExp('(^|[^\\p{L}\\p{N}])(' + defs.map(function (x) { return esc(x.a); }).join('|') + ')(?![\\p{L}\\p{N}])', 'giu');
+    var map = {}; defs.forEach(function (x) { map[x.a.toLowerCase()] = x; });
+    var SKIP = { A: 1, SCRIPT: 1, STYLE: 1, H1: 1, NAV: 1, BUTTON: 1, DT: 1, DD: 1, svg: 1, SVG: 1 };
+    function walk(el, out) {
+      for (var n = el.firstChild; n; n = n.nextSibling) {
+        if (n.nodeType === 3) out.push(n);
+        else if (n.nodeType === 1 && !SKIP[n.tagName] && !n.classList.contains('gl') && !n.classList.contains('mono')) walk(n, out);
+      }
+      return out;
+    }
+    document.querySelectorAll('.panel').forEach(function (p) {
+      if (p.id === 'panel-glossary') return;
+      walk(p, []).forEach(function (tn) {
+        var s = tn.nodeValue, frag = document.createDocumentFragment(), last = 0, m, hit = false;
+        re.lastIndex = 0;
+        while ((m = re.exec(s))) {
+          var st = m.index + m[1].length, d = map[m[2].toLowerCase()];
+          if (!d) continue;
+          frag.appendChild(document.createTextNode(s.slice(last, st)));
+          var sp = document.createElement('span'); sp.className = 'gl'; sp.tabIndex = 0; sp.textContent = m[2];
+          sp.dataset.t = d.t; sp.dataset.d = d.d; frag.appendChild(sp);
+          last = st + m[2].length; hit = true;
+        }
+        if (hit) { frag.appendChild(document.createTextNode(s.slice(last))); tn.parentNode.replaceChild(frag, tn); }
+      });
+    });
+    var tip = document.getElementById('tip'), open = null;
+    function show(el) {
+      tip.innerHTML = '<b></b><span></span>';
+      tip.firstChild.textContent = el.dataset.t; tip.lastChild.textContent = el.dataset.d;
+      tip.style.display = 'block';
+      var r = el.getBoundingClientRect(), w = tip.offsetWidth;
+      tip.style.left = Math.max(12, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - w - 12)) + 'px';
+      tip.style.top = (window.scrollY + r.bottom + 8) + 'px';
+      open = el;
+    }
+    function hide() { tip.style.display = 'none'; open = null; }
+    document.addEventListener('click', function (ev) {
+      var el = ev.target.closest && ev.target.closest('.gl');
+      if (el) { ev.preventDefault(); if (open === el) hide(); else show(el); return; }
+      hide();
+    });
+    document.addEventListener('mouseover', function (ev) { var el = ev.target.closest && ev.target.closest('.gl'); if (el && matchMedia('(hover: hover)').matches) show(el); });
+    document.addEventListener('mouseout', function (ev) { var el = ev.target.closest && ev.target.closest('.gl'); if (el && matchMedia('(hover: hover)').matches) hide(); });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') hide();
+      if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList && ev.target.classList.contains('gl')) { ev.preventDefault(); show(ev.target); }
+    });
+    window.addEventListener('scroll', hide, { passive: true });
+  } catch (e) {}
+})();
+</script>

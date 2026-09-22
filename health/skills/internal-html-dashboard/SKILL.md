@@ -45,6 +45,8 @@ The reader is **the owner on their phone**, managing the case in real time: betw
 
    SVGs take their colors from the theme tokens (`fill="var(--accent)"`) so they work in both themes. Long analysis (sourced Q&A, quick-reference data, detailed scenarios) leaves the main views: it lives in the patient's index/MEMORY and, if wanted on the board, in a "Background" tab of collapsed `<details>`. Whatever is removed from the board is archived first — the dashboard is never the only place a fact lives.
 
+**Reference implementation: `assets/dashboard-reference.html`** (next to this SKILL.md). It is the owner-approved design of 2026-09-22 filled with a fictitious example case: theme tokens for both themes, the tabs/theme/checkbox/tooltip script, and one block of every component (hero, figures, day cards, quote, side-by-side paths, facing numbers, scenario bar, per-stage bars, trajectory, anatomical schematic, benchmark bar, timeline, tasks, glossary, collapsed sources). **Every new dashboard starts by copying it** and replacing the content, written in the owner's language; unused components are deleted. The prompt that produced it is a good way to ask for it: *"few words, big visuals, and a tooltip on every technical term"*.
+
 ## Structure of a living dashboard (pattern of 2026-09-22)
 
 Top-level tabs, each 1-2 phone screens; a tab exists only if it has content:
