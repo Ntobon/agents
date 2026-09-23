@@ -77,7 +77,7 @@ Run the account through this checklist. What was not mentioned stays as "no data
 - **Summary for the user:** question → answer table, what is new, and **what remains open, prioritized** (what is urgent and why). With clinical reasoning and sources when recommending something (critical-thinking policy).
 - **Draft message** for whoever takes the next shift, in plain language: only what must be watched, requested or asked there, numbered, without repeating what is resolved. Show it with the recipient and wait for a yes.
 - **Sending via WhatsApp Web (if approved):** `Shift+Enter` for line breaks (Enter sends). **WhatsApp auto-numbers lists:** type the number only on the first item (`1. …`); later items are typed without a number or they come out doubled ("2. 2."). Zoom in to check before sending and verify the ✓ afterwards.
-- If a reply is expected, schedule a check of the chat (e.g. after 10-15 min) and, when it arrives, go back to step 1 with the same chat.
+- **Never schedule chat checks** (no waits, tasks or routines): shifts have no fixed schedule. The skill runs only when the user asks for it.
 
 ## Context template (section of the patient's `CLAUDE.md`)
 
