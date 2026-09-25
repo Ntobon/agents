@@ -53,7 +53,7 @@ Top-level tabs, each 1-2 phone screens; a tab exists only if it has content:
 
 1. **Private banner**, one line (the owner's document, not for patients).
 2. **Header**: mono eyebrow (patient · age · condition), title, one line "Updated: <date>" — updated on EVERY edit.
-3. **Today**: hero band with the day's state (what, when, where) · 3-4 big figures with a one-word reading · the week as day cards · the question to ask, as a large quote. Emergency signs go here as a red card when active.
+3. **Today**: hero band with the day's state (what, when, where) · 3-4 big figures with a one-word reading · the week as day cards · the question to ask, as a large quote: **open and from the doctor's standpoint (root policy on strategic questions)**; technical findings go to the dashboard's analysis, not into the companion's mouth. Emergency signs go here as a red card when active.
 4. **Decision** (when one is open): the paths side by side with who proposes each · the deciding evidence as two facing numbers · what would tip the balance, in 3 cards.
 5. **What they'll do / the body** (when procedures are coming): SVG schematic with numbered markers + one-line legend · care points for these days, in 3 cards.
 6. **Route**: to-scale bar of the time that matters against its benchmark · dot timeline (done / today / next).

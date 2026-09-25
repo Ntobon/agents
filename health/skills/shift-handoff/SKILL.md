@@ -75,7 +75,7 @@ Run the account through this checklist. What was not mentioned stays as "no data
 ### 6. Handoff to the next shift
 
 - **Summary for the user:** question → answer table, what is new, and **what remains open, prioritized** (what is urgent and why). With clinical reasoning and sources when recommending something (critical-thinking policy).
-- **Draft message** for whoever takes the next shift, in plain language: only what must be watched, requested or asked there, numbered, without repeating what is resolved. Show it with the recipient and wait for a yes.
+- **Draft message** for whoever takes the next shift, in plain language: only what must be watched, requested or asked there, numbered, without repeating what is resolved. Show it with the recipient and wait for a yes. **What they are asked to ask follows the root policy on strategic questions:** one open question from the doctor's standpoint ("treatment has started: what is the plan? roughly how many days?") and at most one backup; technical findings (doses, interactions, labels) are not handed to the companion as questions — they go as a neutral request (the medication sheet) or stay in the care log.
 - **Sending via WhatsApp Web (if approved):** `Shift+Enter` for line breaks (Enter sends). **WhatsApp auto-numbers lists:** type the number only on the first item (`1. …`); later items are typed without a number or they come out doubled ("2. 2."). Zoom in to check before sending and verify the ✓ afterwards.
 - **Never schedule chat checks** (no waits, tasks or routines): shifts have no fixed schedule. The skill runs only when the user asks for it.
 
