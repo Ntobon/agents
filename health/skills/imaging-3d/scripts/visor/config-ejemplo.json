@@ -1,0 +1,178 @@
+{
+  "_doc": "Configuración de EJEMPLO del visor 3D (caso ficticio: un órgano hueco con una estrechez por una lesión de la pared). Se arma con: python armar_visor.py --glb demo/demo.glb --config config-ejemplo.json --pestanas pestanas-ejemplo.html --glosario glosario-ejemplo.html --video video-ejemplo.html --salida \"Visor 3D.html\". Las claves que empiezan con «_» son documentación: armar_visor.py las quita. Coordenadas en glTF: +Y arriba, 1 unidad = 1 cm, +X = izquierda del paciente, +Z hacia adelante. Todo texto es texto plano (sin HTML). [COMPLETAR: …] marca lo que sale de la evidencia del caso.",
+
+  "titulo": "Modelo 3D de ejemplo",
+  "eyebrow": "Caso ficticio · estudio de ejemplo · 7 estructuras",
+  "subtitulo": "Gire con un dedo, acerque con dos y toque los números.",
+  "banner": "Privado de la familia · no circula. Reconstrucción aproximada hecha a partir del estudio; no es una lectura de radiólogo.",
+  "banner_compartir": "Reconstrucción aproximada hecha a partir del estudio de imágenes; no es una lectura de radiólogo.",
+  "pie": "Informativo; no reemplaza a los médicos tratantes ni al informe del radiólogo.",
+  "_doc_compartir": "Cualquier texto de cabecera o pie admite la variante <campo>_compartir para la copia que va a un médico o a un tercero (--variante compartir).",
+  "prefijo_storage": "visor3d-ejemplo",
+
+  "_doc_estructuras": "k = nombre del nodo en el GLB (ASCII); n = nombre visible; c = color hex sRGB; a = opacidad; g = grupo; d = una línea para la leyenda; con = se prende y apaga con el chip de otra estructura; emis = brillo propio; tubo = estructura DIBUJADA sobre la ruta (no viene del GLB). La lesión lleva el único color saturado.",
+  "estructuras": [
+    { "k": "lesion", "n": "Lesión de la pared", "c": "#e0237d", "a": 0.78, "emis": "#3d0020", "g": "visto",
+      "d": "La pared engrosada alrededor de la estrechez. [COMPLETAR: largo × grosor, aprox., al lado de la medida del informe]" },
+    { "k": "luz", "n": "Luz", "c": "#ffffff", "a": 1, "g": "visto", "con": "lesion",
+      "d": "Lo blanco: el espacio por donde pasa el contenido." },
+    { "k": "organo_hueco", "n": "Órgano hueco", "c": "#e8b9a0", "a": 0.34, "g": "visto",
+      "d": "El tubo por donde pasa el contenido, visto por fuera." },
+    { "k": "nodulo", "n": "Nódulo", "c": "#d9a441", "a": 0.9, "g": "visto",
+      "d": "Masa pequeña al lado de la lesión. [COMPLETAR: qué es y su medida]" },
+    { "k": "organo_vecino", "n": "Órgano vecino", "c": "#7f93ad", "a": 0.55, "g": "revisado",
+      "d": "Sin lesiones en el estudio. [COMPLETAR: fuente]" },
+    { "k": "continuacion", "n": "Tramo siguiente", "c": "#e0b089", "a": 0.42, "g": "dibujo",
+      "tubo": { "desde": 11, "hasta": 15, "radio": 1.2 },
+      "d": "Por aquí sigue el contenido. Dibujado con su trayecto típico; no sale del estudio." },
+    { "k": "envoltura", "n": "Contorno del cuerpo", "c": "#d9a07f", "a": 0.07, "g": "ref",
+      "d": "Referencia de tamaño y de posición." }
+  ],
+  "grupos": [
+    { "id": "visto", "n": "Lo que se vio" },
+    { "id": "revisado", "n": "Revisado sin hallazgos" },
+    { "id": "dibujo", "n": "Dibujado (no sale del estudio)" },
+    { "id": "ref", "n": "Referencia" }
+  ],
+  "_doc_foco": "Estructuras que se apagan con «Solo lo importante», con la vista de detalle y durante los modos y flujos con foco.",
+  "foco_ocultar": ["envoltura"],
+
+  "_doc_vistas": "dir = dirección de la cámara desde el objetivo; objetivo = [x,y,z], una clave o \"ruta:N\"; radio = esfera que debe caber (cm); foco = apaga foco_ocultar; boton:false = vista solo para modos y flujos. Sin «vistas» el visor usa frente, oblicua y lateral encuadradas solas.",
+  "vistas": {
+    "frente": { "n": "Frente", "dir": [0, 0.08, 1] },
+    "oblicua": { "n": "Oblicua", "dir": [0.57, 0.1, 0.82] },
+    "lateral": { "n": "Lateral", "dir": [1, 0.06, 0] },
+    "detalle": { "n": "Detalle", "dir": [0.25, 0.12, 1], "objetivo": "lesion", "radio": 5.5, "foco": true },
+    "paso": { "n": "Paso", "dir": [0.2, 0.1, 1], "objetivo": "ruta:7", "radio": 8.5, "boton": false }
+  },
+  "vista_inicial": "frente",
+
+  "_doc_hotspots": "p = [x,y,z] | clave | \"ruta:N\"; desplazar = corrimiento en cm (para que el número quede delante de la superficie); k = estructura a la que pertenece: el número se oculta cuando esa estructura no está. por_modo: texto distinto en un modo (y lo muestra aunque su estructura no esté) o false para ocultarlo.",
+  "hotspots": [
+    { "n": 1, "t": "Lesión de la pared", "p": "ruta:7", "desplazar": [-1.9, 0.3, 0.5], "k": "lesion",
+      "d": "Es la pared engrosada en todo el contorno, no una masa aparte. [COMPLETAR: largo × grosor, aprox.]" },
+    { "n": 2, "t": "La luz (lo blanco)", "p": "ruta:9", "k": "luz", "color": "#ffffff",
+      "d": "El espacio por donde pasa el contenido. En la estrechez mide [COMPLETAR: luz mínima, aprox.].",
+      "por_modo": {
+        "normal": { "t": "La luz sin la lesión", "d": "El mismo tramo con la pared delgada: la luz queda abierta." },
+        "limitada-saca": false, "ampliada-saca": false } },
+    { "n": 3, "t": "Antes de la estrechez", "p": "ruta:3", "desplazar": [0, 0, 1.9], "k": "organo_hueco",
+      "d": "El tramo de arriba se ensancha porque el contenido se represa." },
+    { "n": 4, "t": "Órgano vecino", "p": "organo_vecino", "desplazar": [0, 0, 2.1], "k": "organo_vecino",
+      "d": "Sin lesiones en el estudio. [COMPLETAR: fuente]" },
+    { "n": 5, "t": "Nódulo", "p": "nodulo", "desplazar": [0, 0, 0.9], "k": "nodulo",
+      "d": "[COMPLETAR: qué es, medida aprox. y fuente]" },
+    { "n": 6, "t": "Tramo siguiente (dibujado)", "p": "ruta:13", "desplazar": [0, 0, 1.3], "k": "continuacion",
+      "d": "Por aquí sigue el contenido. No sale del estudio." }
+  ],
+
+  "_doc_modos": "Cada modo es un conjunto de visibilidad y opacidad con su leyenda. modulo: normal (sin la lesión), etapas (secuencia animada), reseccion (opcion + fase saca|queda). foco:true apaga foco_ocultar mientras dure; vista = cámara al entrar; puntos:false oculta los números.",
+  "modos": [
+    { "id": "lesion", "n": "Con la lesión", "grupo": "La lesión" },
+    { "id": "normal", "n": "Sin la lesión", "grupo": "La lesión", "modulo": "normal", "ocultar": ["lesion", "luz"],
+      "leyenda": "Sin la lesión (ilustración): pared delgada y luz abierta en el mismo tramo." },
+    { "id": "crece", "n": "Cómo crece", "grupo": "La lesión", "modulo": "etapas", "secuencia": "crece",
+      "ocultar": ["lesion", "luz"], "opacidad": { "organo_hueco": 0.18 }, "vista": "detalle", "foco": true },
+    { "id": "responde", "n": "Si responde", "grupo": "El tratamiento", "modulo": "etapas", "secuencia": "responde",
+      "ocultar": ["lesion", "luz"], "opacidad": { "organo_hueco": 0.18 }, "vista": "detalle", "foco": true },
+    { "id": "nodulo", "n": "El nódulo", "grupo": "El tratamiento", "modulo": "etapas", "secuencia": "nodulo",
+      "vista": "detalle", "foco": true },
+    { "id": "limitada-saca", "n": "Limitada: qué se saca", "grupo": "La cirugía (esquema)", "modulo": "reseccion",
+      "opcion": "limitada", "fase": "saca", "vista": "paso", "foco": true,
+      "leyenda": "Resección limitada: en rojo, el tramo con la lesión y un margen sano; en amarillo, los ganglios (esquema)." },
+    { "id": "limitada-queda", "n": "Limitada: cómo queda", "grupo": "La cirugía (esquema)", "modulo": "reseccion",
+      "opcion": "limitada", "fase": "queda", "vista": "paso", "foco": true,
+      "leyenda": "Cómo queda: los extremos sanos se unen (puntos blancos). Toque «Líquido» para ver el paso." },
+    { "id": "ampliada-saca", "n": "Ampliada: qué se saca", "grupo": "La cirugía (esquema)", "modulo": "reseccion",
+      "opcion": "ampliada", "fase": "saca", "vista": "paso", "foco": true,
+      "leyenda": "Resección ampliada: un margen mayor, el nódulo y más ganglios (esquema)." },
+    { "id": "ampliada-queda", "n": "Ampliada: cómo queda", "grupo": "La cirugía (esquema)", "modulo": "reseccion",
+      "opcion": "ampliada", "fase": "queda", "vista": "paso", "foco": true,
+      "leyenda": "Cómo queda: un tramo más corto, unido en los puntos blancos." }
+  ],
+  "modo_inicial": "lesion",
+
+  "_doc_ruta": "La luz del órgano hueco: puntos en glTF (cm) y radio de la luz. «archivo» = el ruta.json del trazado de la luz (puntos + radios_mm); armar_visor.py lo incrusta. estrechez = el tramo enfermo por índices de la ruta: de ahí salen la luz «normal» (mismos índices), el tramo de las etapas y el punto donde se acumula el sólido. vel = velocidad del contenido (cm/s); zonas = velocidades por tramo.",
+  "ruta": {
+    "archivo": "demo/demo-ruta.json",
+    "vel": 1.8,
+    "zonas": [ { "desde": 0, "hasta": 2, "vel": 3.0 } ],
+    "estrechez": { "desde": 6, "hasta": 10, "vel": 0.8, "luz_normal": 1.0, "pared_normal": 1.32,
+                   "color_normal": "#e8b9a0", "clave": "lesion" }
+  },
+
+  "_doc_flujo": "Partículas por la luz. El líquido cruza la estrechez; el sólido más grande que la luz mínima se queda antes (con la lesión) y pasa encogido en «Sin la lesión». tam = radio en cm. En un modo «queda» con post_ruta, el flujo sigue la reconstrucción. La simulación ilustra: si se apoya en un dato fisiológico, citarlo.",
+  "flujo": {
+    "titulo": "El paso del contenido",
+    "liquido": { "n": 140, "tam": 0.15, "esp": 0.3, "color": "#4fc3f7" },
+    "solido": { "n": 36, "tam": [0.4, 0.55], "esp": 1.3, "color": "#8d5a2b", "frag": 10, "frag_color": "#6d4321" },
+    "textos": {
+      "liquido": "Con la lesión: el líquido cruza la estrechez (lo blanco) y sigue su camino.",
+      "solido": "Con la lesión: los trozos más grandes que la luz se quedan antes de la estrechez; solo pasan pedacitos.",
+      "liquido_normal": "Sin la lesión: la luz está abierta y el líquido pasa sin esfuerzo.",
+      "solido_normal": "Sin la lesión: los trozos pasan y se van haciendo más pequeños.",
+      "post": "Después de la cirugía: el contenido pasa por la unión y sigue su camino."
+    },
+    "vista": "paso",
+    "opacidad": { "organo_hueco": 0.16, "lesion": 0.45 },
+    "foco": true
+  },
+
+  "_doc_secuencias": "Etapas lentas («Etapa X de N»). Etapa de tubo: luz y pared (cm; número o lista por punto del tramo) sobre la estrechez u otro tramo (desde/hasta). Etapa de escala: {tipo:\"escala\", clave, factor} o «escala»: {clave: factor} dentro de una etapa de tubo. Sirven para el crecimiento y para la respuesta al tratamiento.",
+  "seg_etapa": 6.5,
+  "secuencias": {
+    "crece": [
+      { "t": "La pared es delgada y la luz está abierta: el contenido pasa sin esfuerzo.", "luz": 1.0, "pared": 1.32, "color": "#e8b9a0" },
+      { "t": "Aparecen células anormales en la capa interna de la pared.", "luz": 0.85, "pared": 1.36, "color": "#ec9fb8" },
+      { "t": "La lesión se extiende por dentro de la pared y la engruesa.", "luz": [0.9, 0.6, 0.5, 0.6, 0.9], "pared": [1.36, 1.42, 1.46, 1.42, 1.36], "color": "#ea78ad" },
+      { "t": "La pared se pone rígida: ya no se abre ni se contrae.", "luz": 0.4, "pared": 1.48, "color": "#e654a0" },
+      { "t": "Así se ve en el estudio: [COMPLETAR: grosor de la pared y luz mínima, aprox.].", "luz": 0.22, "pared": 1.55, "color": "#e0237d" },
+      { "t": "Si sigue creciendo, la luz se cierra y ni el líquido pasa.", "luz": 0.06, "pared": 1.6, "color": "#b8145f" }
+    ],
+    "responde": [
+      { "t": "Antes del tratamiento: pared gruesa y luz estrecha.", "luz": 0.22, "pared": 1.55, "color": "#e0237d", "escala": { "nodulo": 1 } },
+      { "t": "Si responde, la lesión se encoge y la pared se adelgaza.", "luz": 0.4, "pared": 1.48, "color": "#e654a0", "escala": { "nodulo": 0.8 } },
+      { "t": "La luz se abre algo. [COMPLETAR: qué sigue después del tratamiento].", "luz": 0.65, "pared": 1.4, "color": "#ea78ad", "escala": { "nodulo": 0.6 } },
+      { "t": "Si no responde, sigue igual o crece.", "luz": 0.1, "pared": 1.58, "color": "#b8145f", "escala": { "nodulo": 1.2 } }
+    ],
+    "nodulo": [
+      { "tipo": "escala", "clave": "nodulo", "factor": 1, "t": "El nódulo al comienzo: [COMPLETAR: medida, aprox.]." },
+      { "tipo": "escala", "clave": "nodulo", "factor": 0.7, "t": "Si responde, se encoge." },
+      { "tipo": "escala", "clave": "nodulo", "factor": 0.45, "t": "[COMPLETAR: qué se espera y cómo se mide]." }
+    ]
+  },
+
+  "_doc_reseccion": "Cada opción: saca = estructuras que salen completas (rojas en «saca», ausentes en «queda»); planos = estructuras cortadas: «queda» es la lista de semiespacios que se conservan ({ruta: N, queda: antes|despues} corta perpendicular a la ruta; o {punto, normal}); ocultar_queda = lo que ya no existe después (no dejar aire ni luz del tramo quitado); reconstruccion = tubos que unen lo que queda; uniones = puntos blancos; post_ruta = camino del contenido después. Puntos: [x,y,z], clave, \"ruta:N\" o \"ruta:A-B\".",
+  "reseccion": {
+    "color_saca": "#e53935",
+    "color_ganglios": "#ffd166",
+    "radio_ganglio": 0.3,
+    "ganglios": [[3.9, 0.6, 0.6], [0.3, 0.2, 1.0], [0.4, -2.6, 0.9], [3.7, -3.4, 0.8], [3.3, 2.4, 0.3], [0.2, -4.4, 0.6]],
+    "opciones": {
+      "limitada": {
+        "n": "Resección limitada",
+        "saca": ["luz"],
+        "planos": [ { "claves": ["organo_hueco"], "queda": [ { "ruta": 5.4, "queda": "antes" }, { "ruta": 10.6, "queda": "despues" } ] } ],
+        "ocultar_queda": ["lesion"],
+        "reconstruccion": [ { "puntos": ["ruta:5.4", [2.6, -2.6, 2.1], "ruta:10.6"], "radio": 1.0, "color": "#e8b9a0", "a": 0.5 } ],
+        "uniones": ["ruta:5.4", "ruta:10.6"],
+        "post_ruta": { "puntos": ["ruta:0-5", "ruta:5.4", [2.6, -2.6, 2.1], "ruta:10.6", "ruta:11-15"], "radio": 0.6 },
+        "texto_post": "Después: el contenido pasa por la unión y sigue su camino. [COMPLETAR: qué cambia al comer]"
+      },
+      "ampliada": {
+        "n": "Resección ampliada",
+        "saca": ["luz", "nodulo"],
+        "planos": [ { "claves": ["organo_hueco", "continuacion"], "queda": [ { "ruta": 4.4, "queda": "antes" }, { "ruta": 11.6, "queda": "despues" } ] } ],
+        "ocultar_queda": ["lesion"],
+        "ganglios": [[4.6, -4.2, 0.4], [-0.2, 3.6, 0.6]],
+        "reconstruccion": [ { "puntos": ["ruta:4.4", [3.2, -1.2, 2.4], "ruta:11.6"], "radio": 1.0, "color": "#e8b9a0", "a": 0.5 } ],
+        "uniones": ["ruta:4.4", "ruta:11.6"],
+        "post_ruta": { "puntos": ["ruta:0-4", "ruta:4.4", [3.2, -1.2, 2.4], "ruta:11.6", "ruta:12-15"], "radio": 0.6 },
+        "texto_post": "Después: un tramo más corto; el contenido pasa por la unión. [COMPLETAR: qué cambia al comer]"
+      }
+    }
+  },
+
+  "_doc_privadas": "Pestañas que NO van en la copia para compartir (--variante compartir). Además, todo elemento con el atributo data-privado se quita de esa copia.",
+  "pestanas_privadas": ["video"]
+}

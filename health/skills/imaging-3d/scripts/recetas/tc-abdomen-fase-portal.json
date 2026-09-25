@@ -1,0 +1,127 @@
+{
+ "_descripcion": "Receta de partida: TAC de abdomen con contraste IV en fase portal (o arterial tardía con buen realce). Produce las claves de la paleta de Blender: arterias, venas, contraste, hueso, bazo, rinones, higado, contenido, luz, pulmones y cuerpo.",
+ "_uso": "Copiar a la carpeta del caso (nunca editar esta). 1) Ubicar la región con cortes_qa.py montaje/reformat. 2) Medir con cortes_qa.py muestrear la aorta, la porta y cada órgano, y ajustar los rangos. 3) Reemplazar cada 'COMPLETAR' por semillas [k, j, i] del volumen completo. 4) segmentar.py y revisar con cortes_qa.py superponer. Los rangos son puntos de partida, no verdades: cambian con la fase, el equipo, el paciente y la enfermedad. Borrar los bloques que no apliquen (y quitarlos de los 'excluir' que los nombran).",
+ "_lesion": "La clave 'lesion' no sale de esta receta: una lesión de pared sale de trazar_luz.py manga --clave lesion; una masa en un órgano sólido se agrega como bloque propio (rango medido + semilla + limitar_a).",
+ "_fase": "Fase por HU (muestrear en la aorta y en la porta): arterial = aorta > 250 y porta clara pero menor; portal = porta >= aorta, las dos ~150-220, hígado realzado ~100-130; tardía/equilibrio = todos los vasos parecidos (~100-150); excretora = contraste denso en la vía urinaria (> 300).",
+ "_recorte": "'auto' = caja del cuerpo en todos los cortes. Para ahorrar memoria y tiempo, limite k a la región: {\"auto\": true, \"k0\": ..., \"k1\": ...} (j e i salen del cuerpo).",
+ "recorte": "auto",
+ "reduccion": [2, 2, 2],
+ "bordes": "replicar",
+ "centro": "cuerpo",
+ "estructuras": [
+  {
+   "clave": "hueso_duro",
+   "auxiliar": true,
+   "fuente": "VM",
+   "rango": [650, null],
+   "_nota": "Auxiliar (no se guarda): hueso cortical denso, solo para restarlo de vasos y contraste. VM = máximo del bloque: capta la cortical fina que la media diluye."
+  },
+  {
+   "clave": "arterias",
+   "fuente": "V",
+   "rango": [190, 600],
+   "excluir": ["hueso_duro+dil:1"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una en la aorta (y en ramas que no se conecten), [[k, j, i]]",
+   "erosion": 1,
+   "crecer": true,
+   "_nota": "Crece por todo lo realzado conectado con la aorta. Pensado para buen realce (aorta >= ~250 UH); en portal verdadera (aorta 150-220) bajar lo a ~150, no más: se pega a la corteza renal (150-200) y al hígado realzado. hi = 600 deja fuera la cortical y el contraste oral denso. La erosión 1 corta puentes finos con hueso y riñón. Si arterias y venas se tocan en la máscara, este bloque se lleva las dos: subir la erosión a 2 o fundir ambos en un solo bloque 'vasos' (y agregar esa clave al estilo de Blender)."
+  },
+  {
+   "clave": "venas",
+   "fuente": "V",
+   "rango": [170, 600],
+   "excluir": ["arterias+dil:1", "hueso_duro+dil:1"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una en la porta y otra en la cava, [[k, j, i], [k, j, i]]",
+   "erosion": 1,
+   "crecer": true,
+   "_nota": "Lo realzado conectado con la porta o la cava, sin las arterias. En arterial las venas casi no realzan: borrar el bloque o bajar lo a lo medido. Si se mete al riñón (venas renales -> corteza), subir lo o la erosión."
+  },
+  {
+   "clave": "contraste",
+   "fuente": "V",
+   "rango": [150, 600],
+   "excluir": ["arterias", "venas", "hueso_duro+dil:1"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una en un asa con contraste oral, [[k, j, i]]",
+   "erosion": 0,
+   "crecer": true,
+   "_nota": "Solo si hay contraste oral positivo (asas blancas). Si no hay, borrar este bloque y quitar 'contraste+dil:1' del excluir de hueso. Crece por las asas conectadas: una semilla por segmento que se quiera."
+  },
+  {
+   "clave": "hueso",
+   "fuente": "VM",
+   "rango": [420, null],
+   "excluir": ["arterias+dil:1", "venas+dil:1", "contraste+dil:1"],
+   "filtro_vecinos": 6,
+   "crecer": false,
+   "_nota": "Sin semillas: todo lo denso que no es vaso ni contraste. Con osteoporosis el esponjoso cae por debajo de 420 y queda sobre todo la cortical (el modelo se ve hueco: es real). Contraste denso que los vasos no tomaron (cavidades del corazón, venas con contraste puro, catéteres) cae aquí: limitar k para no incluir el tórax o sembrarlo en los vasos. filtro_vecinos 6 quita motas (cuenta la caja 3x3x3)."
+  },
+  {
+   "clave": "bazo",
+   "fuente": "Vs",
+   "rango": [110, 170],
+   "excluir": ["arterias", "venas"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una o dos en el bazo, [[k, j, i]]",
+   "erosion": 3,
+   "crecer": true,
+   "_nota": "Va ANTES que los riñones: los rangos se solapan y el riñón resta el bazo dilatado. En portal el bazo es homogéneo (~110-130 UH): medir y usar media +- 25-30. En arterial es moteado: no se segmenta bien con un rango (usar la fase portal o dibujarlo). Vs (suavizado) antes de umbralizar: sin eso la erosión 3 borra la máscara."
+  },
+  {
+   "clave": "rinones",
+   "fuente": "Vs",
+   "rango": [95, 450],
+   "excluir": ["arterias", "venas", "bazo+dil:2"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una por riñón, [[k, j, i], [k, j, i]]",
+   "erosion": 2,
+   "crecer": true,
+   "_nota": "Rango ancho: corteza, médula y la vía urinaria si ya hay contraste excretado. Si toma el bazo, subir la dilatación del excluir (bazo+dil:3); si toma páncreas, asas o hígado vecinos, subir lo o la erosión. Una semilla que cae fuera de la máscara erosionada se mueve al vóxel válido más cercano (segmentar.py lo avisa)."
+  },
+  {
+   "clave": "higado",
+   "fuente": "Vs",
+   "rango": [80, 140],
+   "excluir": ["arterias", "venas", "bazo+dil:1", "rinones+dil:1"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una en el lóbulo derecho, lejos de vasos, [[k, j, i]]",
+   "erosion": 3,
+   "crecer": true,
+   "_nota": "Hígado normal en portal ~100-130 UH (sin contraste 50-65). La esteatosis lo baja (en portal puede quedar en 60-100, por debajo del bazo): medir y centrar el rango en la media +- 20-25. Si se fuga a una víscera vecina, al bazo o a asas: rango más estrecho y erosion 4. Las lesiones que realzan distinto quedan como huecos: es lo esperado."
+  },
+  {
+   "clave": "contenido",
+   "fuente": "Vs",
+   "rango": [30, 70],
+   "excluir": ["higado"],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una en el contenido retenido de la víscera, [[k, j, i]]",
+   "erosion": 3,
+   "crecer": true,
+   "_nota": "Contenido retenido en una víscera hueca, solo si lo hay. Muy variable: líquido 0-20 UH, alimento o contenido espeso 20-60, con contraste oral > 150. Medir y ajustar; si es casi agua, el rango se confunde con vesícula, quistes o líquido libre: erosión alta, semilla central y revisar con superponer. Se resta el hígado porque la pared y el hígado vecino caen en el mismo rango."
+  },
+  {
+   "clave": "luz",
+   "fuente": "V",
+   "rango": [null, -450],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una en el gas de la víscera estudiada, [[k, j, i]]",
+   "erosion": 0,
+   "crecer": true,
+   "_nota": "Gas de la luz conectado con la semilla. -450 deja fuera el volumen parcial de la pared. Crece por todo el gas que se toca (vísceras y asas vecinas conectadas): para una sola víscera, agregar \"limitar_a\": {\"caja_voxel\": [[k0, k1], [j0, j1], [i0, i1]]}. Para seguir una luz estrecha o colapsada usar trazar_luz.py ruta. Con contraste positivo en la luz, cambiar a rango [150, 600] y fuente V."
+  },
+  {
+   "clave": "pulmones",
+   "fuente": "V",
+   "rango": [null, -500],
+   "semillas_voxel": "COMPLETAR con cortes_qa muestrear: una por pulmón, [[k, j, i], [k, j, i]]",
+   "erosion": 1,
+   "crecer": true,
+   "_nota": "Solo si el recorte incluye las bases. La erosión 1 corta la unión con la vía aérea y con el aire de afuera. Si no se quieren, borrar el bloque."
+  },
+  {
+   "clave": "cuerpo",
+   "fuente": "Vs",
+   "rango": [-250, null],
+   "erosion": 2,
+   "crecer": false,
+   "mayor_componente": true,
+   "rellenar_por_corte": true,
+   "_nota": "Silueta sin semilla: la mayor componente (la camilla queda aparte por el aire; si se pega, usar una semilla con crecer: true). El relleno por corte tapa pulmones y gas. Es la estructura que centra el modelo (mapeo.json)."
+  }
+ ]
+}

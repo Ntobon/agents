@@ -1,7 +1,7 @@
 {
   "name": "health",
-  "description": "Family health management system on Google Drive: per-member medical archive with a strict documentary pattern, personal health reports (PDF, Spanish), printable facts-only medical packages for appointments, appointment booking through the insurer's channels (coverage check, evidence- and distance-ranked doctors, WhatsApp bot or portal, email confirmation, calendar), appointment guides (one decision, three questions), private management dashboards, clinical-trials surveillance, and a recurring audit — usable from desktop, web, and mobile against the same files.",
-  "version": "2.7.0",
+  "description": "Family health management system on Google Drive: per-member medical archive with a strict documentary pattern, personal health reports (PDF, Spanish), printable facts-only medical packages for appointments, appointment booking through the insurer's channels (coverage check, evidence- and distance-ranked doctors, WhatsApp bot or portal, email confirmation, calendar), appointment guides (one decision, three questions), private management dashboards, clinical-trials surveillance, 3D imaging explainers built locally from DICOM (own reading, Blender model, interactive viewer), and a recurring audit — usable from desktop, web, and mobile against the same files.",
+  "version": "2.8.0",
   "author": {
     "name": "Nicolás Tobón"
   }

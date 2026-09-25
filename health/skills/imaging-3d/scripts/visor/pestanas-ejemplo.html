@@ -1,0 +1,230 @@
+<!--
+PESTAÑAS DE EJEMPLO del visor 3D genérico (caso ficticio). Cada section class="panel" con id="panel-x" y
+data-titulo="Rótulo" es una pestaña; el orden del archivo es el orden de las pestañas.
+- La sección con id="panel-explorar" no crea pestaña: su contenido va debajo del 3D.
+- data-ver="modo" en un enlace a #panel-explorar lleva el 3D a ese modo (sin JS salta a la sección);
+  data-flujo="liquido" o "solido" además pone a andar el paso del contenido.
+- Marcadores (comentario HTML con doble guion bajo a cada lado): LEYENDA_COLORES y PUNTOS se reemplazan
+  por la leyenda de colores y la lista de números, generadas de la configuración; VIDEO marca dónde va la
+  pestaña de video (sin él, va al final).
+- data-privado en cualquier elemento: se quita en la copia para compartir.
+- [COMPLETAR: …] = evidencia del caso: medidas propias (aprox.) al lado de las del informe; cifras con
+  fuente, «de cada 100…» y «son datos de grupos, no un plazo para una persona».
+Reglas de forma: una tarjeta, una cosa, ≤ 2 líneas; lo dibujable, dibujado; sin planes de la familia en
+lo que circula.
+-->
+
+<section class="panel" id="panel-explorar">
+  <p class="lead"><span class="dot" style="background:#e0237d"></span> <b>Lo magenta es la lesión:</b> la pared engrosada alrededor de la luz (lo blanco), no una masa aparte. [COMPLETAR: largo × grosor, aprox.]</p>
+</section>
+
+<section class="panel" id="panel-crece" data-titulo="Cómo crece">
+  <div class="blk">
+    <h2>¿Qué tan rápido crece?</h2>
+    <div class="cifras">
+      <div class="cifra"><span class="mono">Temprana a avanzada</span><span class="num">[COMPLETAR]<small> meses</small></span><span class="lab">mediana en series sin tratamiento</span></div>
+      <div class="cifra"><span class="mono">Duplica su tamaño</span><span class="num">[COMPLETAR]<small> meses</small></span><span class="lab">rango publicado, no un solo número</span></div>
+    </div>
+    <p class="note">Fuentes: [COMPLETAR: autor, revista, año]. Son datos de grupos, no un plazo para una persona.</p>
+  </div>
+
+  <div class="blk">
+    <h2>Dónde está</h2>
+    <div class="dib">
+      <svg viewBox="0 0 440 250" role="img" aria-label="Esquema de un tubo que se estrecha: antes de la estrechez es ancho, en la estrechez la pared magenta rodea una luz muy fina y después sigue normal">
+        <path d="M20,125 C80,125 110,110 160,110" fill="none" stroke="#e8b9a0" stroke-width="54" stroke-linecap="round"/>
+        <path d="M160,110 L280,110" fill="none" stroke="#e8b9a0" stroke-width="40"/>
+        <path d="M280,110 C330,110 360,130 420,140" fill="none" stroke="#e0b089" stroke-width="36" stroke-linecap="round" stroke-dasharray="10 6"/>
+        <rect x="170" y="80" width="100" height="60" rx="18" fill="#e0237d"/>
+        <path d="M20,125 C80,125 110,110 170,110" fill="none" stroke="#ffffff" stroke-width="30" stroke-linecap="round" opacity=".85"/>
+        <path d="M170,110 L270,110" fill="none" stroke="#ffffff" stroke-width="5"/>
+        <path d="M270,110 C330,110 360,130 420,140" fill="none" stroke="#ffffff" stroke-width="16" opacity=".6"/>
+        <g font-family="system-ui, sans-serif" font-size="19" font-weight="700" fill="#ffffff">
+          <text x="20" y="205">Antes: se ensancha</text>
+          <text x="162" y="58">La estrechez</text>
+          <text x="420" y="235" text-anchor="end">Después (dibujado)</text>
+        </g>
+      </svg>
+    </div>
+    <div class="tri">
+      <div><b>La lesión es la pared</b>El magenta rodea todo el contorno del tubo.</div>
+      <div><b>Lo blanco es la luz</b>El espacio por donde pasa el contenido.</div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>Cómo crece, paso a paso</h2>
+    <div class="pasos">
+      <div class="paso"><span class="n">1</span><div><b>Pared normal</b><span>Delgada; la luz está abierta.</span></div></div>
+      <div class="paso"><span class="n">2</span><div><b>Empieza por dentro</b><span>Células anormales en la capa interna.</span></div></div>
+      <div class="paso"><span class="n">3</span><div><b>Engruesa la pared</b><span>Se extiende por dentro de la pared, en todo el contorno.</span></div></div>
+      <div class="paso"><span class="n">4</span><div><b>La pared se endurece</b><span>Ya no se abre ni se contrae.</span></div></div>
+      <div class="paso"><span class="n">5</span><div><b>Así está hoy</b><span>[COMPLETAR: grosor y luz mínima, aprox., con la fuente].</span></div></div>
+      <div class="paso"><span class="n">6</span><div><b>Si sigue, se cierra</b><span>Ni el líquido pasa: es lo que el tratamiento busca evitar.</span></div></div>
+    </div>
+    <div class="fila"><a class="btn" href="#panel-explorar" data-ver="crece">Verlo en el modelo 3D</a></div>
+  </div>
+
+  <div class="blk">
+    <h2>Por qué se estrecha</h2>
+    <div class="tri">
+      <div><b>La pared ocupa la luz</b>Crece hacia adentro y deja menos espacio.</div>
+      <div><b>Queda rígida</b>No se abre ni se contrae para empujar.</div>
+      <div><b>Se cierra del todo si…</b>la lesión sigue creciendo o un trozo se atasca.</div>
+    </div>
+    <p class="note">El paso a paso es una ilustración, no una medición. Fuentes: [COMPLETAR: autor, revista, año].</p>
+  </div>
+</section>
+
+<section class="panel" id="panel-tratamiento" data-titulo="Tratamiento">
+  <div class="blk">
+    <h2>Qué busca</h2>
+    <div class="tri">
+      <div><b>Encoger la lesión</b>Así es más fácil sacarla completa.</div>
+      <div><b>Tratar lo que no se ve</b>Células que pudieron salir del órgano.</div>
+      <div><b>Abrir algo la luz</b>Si responde; no siempre pasa.</div>
+    </div>
+    <div class="fila">
+      <a class="btn" href="#panel-explorar" data-ver="responde">Ver en 3D: si responde</a>
+      <a class="btn" href="#panel-explorar" data-ver="nodulo">Ver en 3D: el nódulo</a>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>Cómo va</h2>
+    <div class="pasos">
+      <div class="paso"><span class="n">1</span><div><b>[COMPLETAR: fase 1]</b><span>[COMPLETAR: cuánto dura, en una línea].</span></div></div>
+      <div class="paso"><span class="n">2</span><div><b>Estudio de control</b><span>Mira si la lesión se encogió.</span></div></div>
+      <div class="paso"><span class="n">3</span><div><b>[COMPLETAR: lo que sigue]</b><span>[COMPLETAR: cuándo].</span></div></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>¿Cuándo se sabe si responde?</h2>
+    <div class="cifras">
+      <div class="cifra"><span class="mono">Para saberlo con certeza</span><span class="num">[COMPLETAR]<small> meses</small></span><span class="lab">desde el comienzo</span></div>
+      <div class="cifra"><span class="mono">Imagen frente a patología</span><span class="num">[COMPLETAR]<small> %</small></span><span class="lab">coincidieron</span></div>
+    </div>
+    <p class="note">Fuentes: [COMPLETAR: autor, revista, año].</p>
+  </div>
+
+  <div class="blk">
+    <h2>¿Por qué en este orden?</h2>
+    <p class="quote">[COMPLETAR: la lógica de la secuencia en una frase].</p>
+    <span class="mono">[COMPLETAR: medida · ensayo · número de pacientes]</span>
+    <div class="vs">
+      <div><div class="num">[A]</div><div class="note">[COMPLETAR: con esta secuencia]</div></div>
+      <div class="eq">&gt;</div>
+      <div><div class="num">[B]</div><div class="note">[COMPLETAR: con la otra]</div></div>
+    </div>
+    <p class="note">De cada 100 pacientes, [A] frente a [B]. Son datos de grupos, no un plazo para una persona. Si la edad o el subtipo difieren de los del ensayo, decirlo aquí.</p>
+    <div class="tri">
+      <div><b class="warn-t">Argumentos para la otra opción</b>[COMPLETAR: los que aplican a este paciente].</div>
+      <div><b>Quién decide</b>La secuencia la decide el equipo tratante con el paciente.</div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>Durante el tratamiento, vigilar</h2>
+    <div class="tri">
+      <div><b class="crit-t">Señal de alarma</b>[COMPLETAR: qué es y a dónde ir].</div>
+      <div><b>El paso del contenido</b>Si deja de pasar el líquido, avisar de inmediato.</div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="panel-cirugia" data-titulo="Cirugía">
+  <div class="blk">
+    <h2>Lo que se hace, en orden</h2>
+    <div class="pasos">
+      <div class="paso"><span class="n">1</span><div><b>Revisar por dentro</b><span>Confirmar que la lesión está solo ahí.</span></div></div>
+      <div class="paso"><span class="n">2</span><div><b>Sacar el tramo con margen</b><span>La lesión con tejido sano alrededor.</span></div></div>
+      <div class="paso"><span class="n">3</span><div><b>Revisar el borde</b><span>Durante la cirugía; si no está limpio, se corta más.</span></div></div>
+      <div class="paso"><span class="n">4</span><div><b>Sacar los ganglios vecinos</b><span>Para estudiarlos al microscopio.</span></div></div>
+      <div class="paso"><span class="n">5</span><div><b>Unir lo que queda</b><span>Los extremos sanos se cosen.</span></div></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>Dos opciones</h2>
+    <div class="fork">
+      <div class="path"><span class="mono">Limitada</span><h3>Se saca el tramo</h3>
+        <ul><li>Cuando cabe un margen sano suficiente.</li><li>Queda más órgano.</li></ul>
+        <div class="fila"><a class="btn" href="#panel-explorar" data-ver="limitada-saca">Qué se saca</a><a class="btn" href="#panel-explorar" data-ver="limitada-queda">Cómo queda</a></div>
+      </div>
+      <div class="path"><span class="mono">Ampliada</span><h3>Se saca más</h3>
+        <ul><li>Cuando el margen no cabe o hay algo vecino.</li><li>Queda un tramo más corto.</li></ul>
+        <div class="fila"><a class="btn" href="#panel-explorar" data-ver="ampliada-saca">Qué se saca</a><a class="btn" href="#panel-explorar" data-ver="ampliada-queda">Cómo queda</a></div>
+      </div>
+    </div>
+    <p class="quote">Se decide por el margen: el tejido sano que se deja alrededor.</p>
+  </div>
+
+  <div class="blk">
+    <h2>¿Qué define cuánto se saca?</h2>
+    <div class="dib">
+      <svg viewBox="0 0 440 210" role="img" aria-label="Dos tubos con la lesión en magenta: en el primero el corte deja un margen corto y en el segundo uno más largo">
+        <g transform="translate(0,6)">
+          <path d="M20,40 L420,40" stroke="#e8b9a0" stroke-width="30"/>
+          <rect x="190" y="25" width="60" height="30" rx="10" fill="#e0237d"/>
+          <path d="M150,14 L150,66 M290,14 L290,66" stroke="#ff5252" stroke-width="3" stroke-dasharray="6 4"/>
+          <text x="20" y="90" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Margen corto: limitada</text>
+        </g>
+        <g transform="translate(0,106)">
+          <path d="M20,40 L420,40" stroke="#e8b9a0" stroke-width="30"/>
+          <rect x="190" y="25" width="60" height="30" rx="10" fill="#e0237d"/>
+          <circle cx="330" cy="40" r="11" fill="#d9a441"/>
+          <path d="M100,14 L100,66 M360,14 L360,66" stroke="#ff5252" stroke-width="3" stroke-dasharray="6 4"/>
+          <text x="20" y="90" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Margen mayor y el nódulo: ampliada</text>
+        </g>
+      </svg>
+    </div>
+    <div class="tri">
+      <div><b>Se mide desde el borde</b>[COMPLETAR: cuántos cm de margen pide la guía].</div>
+      <div><b>Se confirma en la cirugía</b>Si el borde no está limpio, se corta más.</div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>Cómo queda y cómo funciona</h2>
+    <p class="lead">Los extremos sanos se unen y el contenido vuelve a pasar. [COMPLETAR: qué cambia al comer o al vivir con eso].</p>
+    <div class="fila"><a class="btn" href="#panel-explorar" data-ver="limitada-queda" data-flujo="liquido">Ver el paso después de la cirugía</a></div>
+    <p class="note">El 3D de la cirugía es un esquema: la técnica la define el equipo quirúrgico. Fuentes: [COMPLETAR: guía, autor, año].</p>
+  </div>
+</section>
+
+<!--__VIDEO__-->
+
+<section class="panel" id="panel-leer" data-titulo="Cómo leerlo">
+  <div class="blk">
+    <h2>¿Dónde está y cuánto mide?</h2>
+    <div class="cifras">
+      <div class="cifra"><span class="mono">Largo</span><span class="num">[COMPLETAR]<small> cm</small></span><span class="lab">aprox.; el informe dice [COMPLETAR]</span></div>
+      <div class="cifra"><span class="mono">Pared</span><span class="num">[COMPLETAR]<small> cm</small></span><span class="lab">lo normal: [COMPLETAR]</span></div>
+      <div class="cifra"><span class="mono">Luz mínima</span><span class="num">[COMPLETAR]<small> mm</small></span><span class="lab">aprox., medida propia</span></div>
+    </div>
+  </div>
+  <div class="blk">
+    <h2>Qué es cada color</h2>
+    <!--__LEYENDA_COLORES__-->
+  </div>
+  <div class="blk">
+    <h2>Los números del modelo</h2>
+    <!--__PUNTOS__-->
+  </div>
+  <div class="blk">
+    <h2>Lo que muestra y lo que no</h2>
+    <div class="tri">
+      <div><b class="ok-t">Muestra</b>Dónde está la lesión y qué tramo ocupa.</div>
+      <div><b class="warn-t">No mide</b>El calibre exacto; las medidas propias son aproximadas.</div>
+      <div><b class="crit-t">No ve</b>Lo microscópico: eso lo dice la patología.</div>
+      <div><b>Dibujado</b>Lo rotulado «dibujado» completa la anatomía; no sale del estudio.</div>
+    </div>
+    <p class="lead">De frente, la izquierda del paciente queda a la derecha de la pantalla, como en toda imagen radiológica. El visor lo rotula.</p>
+    <p class="note">Hecho en local a partir del DICOM: [COMPLETAR: serie, cortes y método de segmentación]. Es una lectura propia y aproximada; no es un informe.</p>
+  </div>
+  <div class="blk" data-privado>
+    <h2>Solo para la familia</h2>
+    <p class="lead">[COMPLETAR: lo que solo la familia necesita ver]. Este bloque no viaja en la copia para compartir.</p>
+  </div>
+</section>

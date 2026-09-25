@@ -1,0 +1,42 @@
+{
+ "_nota": [
+  "Paleta de partida para un abdomen. Las claves tienen que coincidir con las de mascaras.npz: las que falten se omiten con un aviso y se pueden agregar otras. El orden de la lista es el orden de mallado.",
+  "Regla 1. La lesión lleva el ÚNICO color saturado de su familia: magenta #ff2d95. Violetas, lilas, fucsias y rosados (tono 265°-345°) quedan reservados para ella. En un caso real un bazo violeta se confundió con el tumor; se arregló con gris azulado #7f93ad. mallas.py avisa si otra estructura cae en esa banda: marcar la lesión con \"lesion\": true.",
+  "Regla 2. Un color, un significado: dos estructuras no comparten color. mallas.py avisa si dos colores quedan a menos de 40/255 de distancia (ojo con naranja y ámbar).",
+  "Regla 3. Luz o aire del órgano estudiado: blanco (con emisión, para que se vea a través de la lesión). Envoltura del cuerpo: casi transparente (alpha 0.05-0.1). Hueso: marfil. Arterias rojas, venas azules. El rojo de las arterias (tono ~356°) queda fuera de la banda de la lesión.",
+  "Regla 4. Los colores se escriben en hex sRGB; mallas.py los convierte a lineal. render.py usa la vista 'Standard' para que el render muestre el hex tal cual.",
+  "Campos: clave, nombre, color, alpha, grupo (una colección por grupo), suavizado {blur: pasadas [1 2 1], taubin: iteraciones}, decimar (fracción de triángulos que se conserva), min_componente_vox (retira islas más pequeñas).",
+  "Opcionales: iso (0.5; 0.35-0.45 para estructuras finas), solo_mayor (true: solo la isla más grande), dentro_de (recorta con otra clave, p. ej. hueso dentro de cuerpo quita la mesa), max_caras (tope de triángulos), rugosidad (0.45), emision (0), sombra (por defecto false si alpha <= 0.25), transparencia (mezclada | tramada; por defecto mezclada si alpha <= 0.25), lesion (true)."
+ ],
+ "fondo": "#131416",
+ "estructuras": [
+  {"clave": "lesion", "nombre": "Lesión", "color": "#ff2d95", "alpha": 0.6, "grupo": "1 Hallazgo",
+   "suavizado": {"blur": 1, "taubin": 10}, "decimar": 1.0, "min_componente_vox": 0, "solo_mayor": true,
+   "rugosidad": 0.35, "emision": 0.6, "lesion": true},
+  {"clave": "luz", "nombre": "Luz (aire o contraste)", "color": "#ffffff", "alpha": 1.0, "grupo": "1 Hallazgo",
+   "suavizado": {"blur": 1, "taubin": 6}, "decimar": 1.0, "min_componente_vox": 0, "iso": 0.4,
+   "rugosidad": 0.4, "emision": 0.8},
+  {"clave": "contenido", "nombre": "Contenido retenido", "color": "#f4d35e", "alpha": 0.55, "grupo": "1 Hallazgo",
+   "suavizado": {"blur": 2, "taubin": 12}, "decimar": 0.55, "min_componente_vox": 50, "rugosidad": 0.4},
+  {"clave": "contraste", "nombre": "Contraste oral", "color": "#3cff4e", "alpha": 1.0, "grupo": "1 Hallazgo",
+   "suavizado": {"blur": 1, "taubin": 8}, "decimar": 1.0, "min_componente_vox": 20, "rugosidad": 0.35, "emision": 0.35},
+  {"clave": "higado", "nombre": "Hígado", "color": "#8e3324", "alpha": 0.5, "grupo": "2 Órganos",
+   "suavizado": {"blur": 2, "taubin": 12}, "decimar": 0.4, "min_componente_vox": 0, "solo_mayor": true, "sombra": false},
+  {"clave": "bazo", "nombre": "Bazo", "color": "#7f93ad", "alpha": 0.55, "grupo": "2 Órganos",
+   "suavizado": {"blur": 2, "taubin": 10}, "decimar": 1.0, "min_componente_vox": 0, "solo_mayor": true},
+  {"clave": "rinones", "nombre": "Riñones", "color": "#f08a24", "alpha": 0.7, "grupo": "2 Órganos",
+   "suavizado": {"blur": 1, "taubin": 10}, "decimar": 0.4, "min_componente_vox": 500},
+  {"clave": "pulmones", "nombre": "Pulmones", "color": "#8ec9f2", "alpha": 0.2, "grupo": "3 Referencia",
+   "suavizado": {"blur": 1, "taubin": 10}, "decimar": 0.2, "min_componente_vox": 200, "dentro_de": "cuerpo",
+   "rugosidad": 0.5, "sombra": false},
+  {"clave": "arterias", "nombre": "Arterias", "color": "#d11f2a", "alpha": 1.0, "grupo": "3 Referencia",
+   "suavizado": {"blur": 1, "taubin": 10}, "decimar": 0.6, "min_componente_vox": 100, "iso": 0.45, "rugosidad": 0.35},
+  {"clave": "venas", "nombre": "Venas", "color": "#2f5fd0", "alpha": 1.0, "grupo": "3 Referencia",
+   "suavizado": {"blur": 1, "taubin": 10}, "decimar": 0.6, "min_componente_vox": 100, "iso": 0.45, "rugosidad": 0.35},
+  {"clave": "hueso", "nombre": "Hueso", "color": "#eee4c6", "alpha": 0.55, "grupo": "3 Referencia",
+   "suavizado": {"blur": 1, "taubin": 6}, "decimar": 0.33, "min_componente_vox": 40, "iso": 0.4, "dentro_de": "cuerpo",
+   "rugosidad": 0.55, "sombra": false},
+  {"clave": "cuerpo", "nombre": "Cuerpo (piel)", "color": "#e3b49a", "alpha": 0.07, "grupo": "3 Referencia",
+   "suavizado": {"blur": 3, "taubin": 60}, "decimar": 0.15, "min_componente_vox": 0, "rugosidad": 0.65, "sombra": false}
+ ]
+}
