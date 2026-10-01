@@ -53,6 +53,15 @@ Documentación médica de **<nombre completo>**, <relación con el dueño de la 
 - **Carpeta legal:** <ruta, si existe>
 - **A quién se avisa:** <canal de notificación>
 
+## Agenda familiar
+
+(Opcional — configuración de la skill `family-agenda`; se llena al publicar el tablero.)
+
+- **Tablero:** <nombre>, <URL del artefacto> · archivo `00 Agenda y tareas de la familia.html`.
+- **Responsables posibles:** <personas que gestionan>. **Las gestiones las lleva** <persona> por defecto.
+- **Nombre corto:** <nombre corto> · paciente en las filas: «<cómo se le dice>».
+- **Excluido:** todo lo clínico, gastos y pagos, frente legal (ajustar según la familia).
+
 ## Particularidades de archivo
 
 - <Lo que un futuro lector debe saber del estado del archivo de esta carpeta: qué falta, qué formatos, decisiones de organización.>
