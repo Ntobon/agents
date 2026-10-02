@@ -13,6 +13,11 @@
       "name": "health",
       "source": "./health",
       "description": "Family health management system on Google Drive: per-member medical archive with a strict documentary pattern, health reports, printable medical packages, private dashboards, clinical-trials surveillance, and a recurring audit."
+    },
+    {
+      "name": "skills",
+      "source": "./skills",
+      "description": "General-purpose skills that are not tied to one agent. First one: artifact-ux, the design system for HTML artifacts and pages (tabs instead of documents, mandatory TL;DR, both themes, contrast discipline)."
     }
   ]
 }

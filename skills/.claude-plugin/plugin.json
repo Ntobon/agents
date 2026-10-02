@@ -1,0 +1,8 @@
+{
+  "name": "skills",
+  "description": "General-purpose skills that are not tied to a specific agent: reusable craft for any project.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nicolás Tobón"
+  }
+}
