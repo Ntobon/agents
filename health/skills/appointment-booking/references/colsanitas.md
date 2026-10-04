@@ -33,7 +33,7 @@ Tested on a Plan Integral contract. Contains no customer data.
 
 ## Oficina Virtual route
 
-Citas médicas → choose the plan (it may also list the public-insurance plan) → Nueva cita → Medicina → Presencial → Por especialidad (type and pick the suggestion) → city → site → "Lo antes posible" + day and time-window filters (Mañana/Tarde/Noche) → Ver agenda (list by day with doctor) → Solicitar → Siguiente → confirm email and phone (prefilled) → Confirmar cita. The portal **shows no appointment code**; the CONFIRMADA status appears under "Citas agendadas". The page is an app that `get_page_text` cannot read: use screenshots.
+Citas médicas → choose the plan (it may also list the public-insurance plan) → Nueva cita → Medicina → Presencial → Por especialidad (type and pick the suggestion) → city → site → "Lo antes posible" + day and time-window filters (Mañana/Tarde/Noche) → Ver agenda (list by day with doctor) → Solicitar → Siguiente → confirm email and phone (prefilled) → Confirmar cita. Appointments booked through the WhatsApp bot **also appear in the portal** (same system) under "Citas agendadas", with cancel and reschedule buttons, so the portal can manage all of them. The portal **shows no appointment code**; the CONFIRMADA status appears under "Citas agendadas". The page is an app that `get_page_text` cannot read: use screenshots.
 
 Searching by center may return only the first doctor with openings (all mornings). For a specific time window, search by doctor name: each has an own schedule.
 
