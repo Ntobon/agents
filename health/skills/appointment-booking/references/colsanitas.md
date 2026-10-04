@@ -29,6 +29,12 @@ Tested on a Plan Integral contract. Contains no customer data.
 15. "¿Deseas comprar vales?" → `2` No (payment is the user's job).
 16. `2` Finalizar. The closing survey can be left unanswered.
 
+**The bot is tied to the ID document of the number writing to it.** It will not book for a beneficiary of the contract: it answers that this goes through "servicios en línea" or the phone line. For a beneficiary there are two paths: the bot from that person's own WhatsApp, or the **Oficina Virtual with the beneficiary's account** (they do the login).
+
+## Oficina Virtual route
+
+Citas médicas → choose the plan (it may also list the public-insurance plan) → Nueva cita → Medicina → Presencial → Por especialidad (type and pick the suggestion) → city → site → "Lo antes posible" + day and time-window filters (Mañana/Tarde/Noche) → Ver agenda (list by day with doctor) → Solicitar → Siguiente → confirm email and phone (prefilled) → Confirmar cita. The portal **shows no appointment code**; the CONFIRMADA status appears under "Citas agendadas". The page is an app that `get_page_text` cannot read: use screenshots.
+
 Searching by center may return only the first doctor with openings (all mornings). For a specific time window, search by doctor name: each has an own schedule.
 
 ## Plan Integral rules that affect booking

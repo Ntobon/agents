@@ -64,7 +64,13 @@ One multiple-choice question set: doctor per specialty (recommended first, plus 
 ### 6. Verify and calendar
 
 1. **Patient's mailbox:** find the insurer's confirmation (sender from the context, last 24 h). Check date, time, doctor, site and code against the bot. If nothing arrives in a few minutes, say so.
-2. **Patient's calendar:** one event per appointment via `https://calendar.google.com/calendar/u/0/r/eventedit?text=…&dates=YYYYMMDDTHHMMSS/YYYYMMDDTHHMMSS&ctz=<tz>&location=…&details=…`, then Save. Description: code, voucher/authorization reminder, "arrive 15 min early with card and ID", what to bring or ask. Check the week view shows one event per appointment.
+2. **Calendar: every confirmed appointment ends up in a calendar, with guests and a day-before reminder.** Mandatory, also for appointments the insurer assigned by phone.
+   - **Where:** in the calendar of whoever manages appointments (the one in the context). Create it with `https://calendar.google.com/calendar/u/0/r/eventedit?text=…&dates=YYYYMMDDTHHMMSS/YYYYMMDDTHHMMSS&ctz=<tz>&location=…&details=…&add=<email1>,<email2>`; `add=` preloads the guests.
+   - **Guests:** the patient and whoever accompanies them (plus anyone else the context lists for that patient). Emails come from each person's `CLAUDE.md`. **If an email is missing, ask for it** (or propose one found in the user's mailbox and confirm it) and record it in that person's context before inviting. Sending invitations is a message on the user's behalf: confirm the guest list once before the first send.
+   - **Reminders:** two notifications, **30 minutes and 1 day before** ("Add notification" → 1 → days). If the user wants a different rule, it goes in their context.
+   - **Cleanup:** remove the Meet video call the calendar adds automatically when guests are added (in-person visit). Saving with guests prompts "Send invitation emails?" → Send.
+   - **Description:** code, voucher/authorization reminder, "arrive 15 min early with card and ID", what to bring or ask. If it goes to other people (family), logistics only: no tactics, no clinical analysis.
+   - **Verify** in the month view that there is exactly one event per appointment, and open one to check reminders and guests. Appointments without a confirmed time are not created: record them as pending.
 
 ### 7. Record
 
@@ -87,5 +93,7 @@ A short table of appointments (date, time, doctor, site, code), what the user mu
 - **Navegador:** Chrome · carpeta de perfil <"Profile N"> · nombre <…> · cuenta <profile email> · `deviceId` <…> (confirmado el <date>).
 - **Portal:** <URL>. Login done by the patient or policyholder.
 - **Bot de citas:** WhatsApp <number> from WhatsApp Web in that profile. Route: see `references/<insurer>.md` + own quirks.
-- **Confirmaciones:** from <sender> to <email>. **Calendario:** <Google Calendar account>.
+- **Confirmaciones:** from <sender> to <email>. **Calendario:** <Google Calendar account where appointments are created>.
+- **Correo para invitaciones:** <patient email>. **Acompañante(s) a invitar:** <name and email of whoever usually accompanies>.
+- **Preferencias fijas:** <e.g. female doctors, afternoons only> — applied without asking again.
 ```
