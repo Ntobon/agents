@@ -88,6 +88,8 @@ Per the documentary pattern in the root `CLAUDE.md`, the same day:
 
 ### 6. Think before closing
 
+**Timed instructions for the patient (before everything else):** if a document contains something the patient or the family must do before a specific time (a medication the night or morning before, fasting, stopping a drug, bringing something, an injection the next day), it goes first in the summary and in the notification, with the time, whether there is evidence they have it or that someone explained it, and what to do if it cannot be met in time (never double a dose; tell the care team). A scheduled run notifies even when there is no other news.
+
 For each item: what changes, which deadline moves, what it contradicts, who needs to know. Contrast against what the archive already knew and say what is fact and what is reading. Whatever is worth doing (asking for a correction, calling, filing) is proposed, not executed.
 
 ## Output
